@@ -36,7 +36,10 @@ class AppServiceProvider extends ServiceProvider
      */
     protected function registerForLocal()
     {
-        // IDE Helper Generator
+        // IDE Helper Generator from "barryvdh/laravel-ide-helper" package
         $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+        // Debug bar from "barryvdh/laravel-debugbar"
+        $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
+        AliasLoader::getInstance(['Debugbar' => \Barryvdh\Debugbar\Facade::class]);
     }
 }

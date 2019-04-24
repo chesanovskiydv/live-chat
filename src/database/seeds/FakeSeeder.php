@@ -89,16 +89,9 @@ class FakeSeeder extends Seeder
     {
         $amount = $this->valueFromRange($range);
 
-        $pivotAttributes = [['role_id' => Role::where(['name' => Role::ADMIN])->first()->getKey()]];
-        if ($amount > 1) {
-            $pivotAttributes = array_merge(
-                $pivotAttributes,
-                array_fill(1, $amount - 1, ['role_id' => Role::where(['name' => Role::USER])->first()->getKey()])
-            );
-        }
-
-        return $workspace->users()
-            ->saveMany(factory(User::class, $amount)->create(), $pivotAttributes);
+        return factory(User::class, $amount)->create()->each(function (User $user, $key) use ($workspace) {
+            $user->attachRole(Role::where(['name' => $key === 0 ? Role::ADMIN : Role::USER])->first(), $workspace);
+        });
     }
 
     /**
@@ -162,7 +155,7 @@ class FakeSeeder extends Seeder
 
         return $chat->messages()
             ->saveMany(factory(Message::class, $amount)->make()->each(function (Message $message, $key) use ($visitor, $user) {
-                $message->sender()->associate(($key % 3 !== 2 && $user) ? $user : $visitor);
+                $message->sender()->associate(($key % 3 === 2 && $user) ? $user : $visitor);
             }));
     }
 

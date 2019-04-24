@@ -1,9 +1,8 @@
 <?php
 
+use App\Models\Role;
 use App\Models\User;
-use App\Models\UserType;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Date;
 
 class UsersTableSeeder extends Seeder
 {
@@ -14,13 +13,11 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::updateOrInsert([
-            'user_type_id' => UserType::where(['name' => UserType::SUPER_ADMIN])->first()->getKey(),
+        $user = User::updateOrCreate([
             'name' => 'Admin',
             'email' => 'admin@mail.com',
             'password' => Hash::make('password'),
-            User::CREATED_AT => Date::now(),
-            User::UPDATED_AT => Date::now()
         ]);
+        $user->attachRole(Role::where(['name' => Role::SUPER_ADMIN])->first());
     }
 }

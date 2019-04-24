@@ -2,46 +2,39 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Laratrust\Models\LaratrustTeam;
 
 /**
  * App\Models\Workspace
  *
  * @property int $id
- * @property string $title
+ * @property string $name
+ * @property string|null $display_name
+ * @property string|null $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Visitor[] $visitors
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\WorkspaceApiKey[] $workspaceApiKeys
- * @method static bool|null forceDelete()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Workspace newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Workspace newQuery()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Workspace onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Workspace query()
- * @method static bool|null restore()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Workspace whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Workspace whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Workspace whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Workspace whereDisplayName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Workspace whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Workspace whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Workspace whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Workspace whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Workspace withTrashed()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Workspace withoutTrashed()
  * @mixin \Eloquent
  */
-class Workspace extends Model
+class Workspace extends LaratrustTeam
 {
-    use SoftDeletes;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'title',
+        'name', 'display_name', 'description',
     ];
 
     /**
@@ -50,18 +43,8 @@ class Workspace extends Model
      * @var array
      */
     protected $visible = [
-        'title'
+        'name', 'display_name', 'description',
     ];
-
-    /**
-     * The users that belong to the workspace.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function users()
-    {
-        return $this->belongsToMany(User::class)->withTimestamps();
-    }
 
     /**
      * The visitors that belong to the workspace.

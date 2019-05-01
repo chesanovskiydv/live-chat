@@ -27,21 +27,5 @@ use Laratrust\Models\LaratrustPermission;
  */
 class Permission extends LaratrustPermission
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'display_name', 'description',
-    ];
 
-    /**
-     * The attributes that should be visible in serialization.
-     *
-     * @var array
-     */
-    protected $visible = [
-        'name', 'display_name', 'description',
-    ];
 }

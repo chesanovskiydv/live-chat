@@ -19,15 +19,15 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']], function (Router $router) {
 
+    /**
+     * GET|HEAD      /                                               dashboard
+     */
+    $router->get('/', 'DashboardController@index')->name('dashboard');
+
     /*
      * "Super Admin" role section
      */
     $router->group(['middleware' => ['role:' . Role::SUPER_ADMIN]], function (Router $router) {
-
-        /**
-         * GET|HEAD      /                                               dashboard
-         */
-        $router->get('/', 'DashboardController@index')->name('dashboard');
 
         /**
          * GET|HEAD      /workspaces                                     workspaces.index

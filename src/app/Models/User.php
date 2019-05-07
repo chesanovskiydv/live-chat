@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -43,7 +44,10 @@ use Laratrust\Traits\LaratrustUserTrait;
  */
 class User extends Authenticatable
 {
-    use Notifiable, LaratrustUserTrait;
+    use Notifiable, LaratrustUserTrait, Authorizable {
+        Authorizable::can insteadof LaratrustUserTrait;
+        LaratrustUserTrait::can as laratrustCan;
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -99,5 +103,15 @@ class User extends Authenticatable
     public function messages()
     {
         return $this->morphMany(Message::class, 'sender');
+    }
+
+    /**
+     * The user active workspace.
+     *
+     * @return null|Workspace
+     */
+    public function activeWorkspace()
+    {
+        return $this->workspaces()->first();
     }
 }

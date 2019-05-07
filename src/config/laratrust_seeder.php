@@ -3,23 +3,29 @@
 return [
     'role_structure' => [
         'super_admin' => [
-            'workspaces' => 'c,r,u,d',
-            'users' => 'c,r,u,d',
-            'messages' => 'c,r'
+            'workspaces' => 'c,v,u,d,r,fd',
+            'users' => 'c,v,u,d,r,fd',
         ],
         'admin' => [
-            'users' => 'c,r,u,d',
-            'messages' => 'c,r'
+            'users' => 'c,v,u,d,r,fd',
+            'api_keys' => 'c,v,u,d,r,fd',
+            'visitors' => 'v',
+            'chats' => 'v',
+            'messages' => 'c,v'
         ],
         'user' => [
-            'messages' => 'c,r'
+            'visitors' => 'v',
+            'chats' => 'v',
+            'messages' => 'c,v'
         ],
     ],
     'permission_structure' => [],
     'permissions_map' => [
         'c' => 'create',
-        'r' => 'read',
+        'v' => 'view',
         'u' => 'update',
-        'd' => 'delete'
+        'd' => 'delete',
+        'r' => 'restore',
+        'fd' => 'force_delete'
     ]
 ];

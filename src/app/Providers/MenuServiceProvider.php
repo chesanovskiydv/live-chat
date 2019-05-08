@@ -2,20 +2,14 @@
 
 namespace App\Providers;
 
-use App\Models\Category as CategoryModel;
-use App\Models\Client as ClientModel;
-use App\Models\Keyword as KeywordModel;
-use App\Models\Product as ProductModel;
-use App\Models\ParserSession as ParserSessionModel;
-use App\Models\ProductData as ProductDataModel;
-use App\Models\Retailer as RetailerModel;
-use App\Models\User as UserModel;
+use App\Models\Chat;
+use App\Models\User;
+use App\Models\Visitor;
+use App\Models\Workspace;
+use App\Models\WorkspaceApiKey;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 use Illuminate\Support\ServiceProvider;
-use App\Jobs\LinkMonitor\Categories\Data as DataCategoriesLinksJob;
-use App\Jobs\LinkMonitor\Products\Data as DataProductLinksJob;
-use App\Jobs\LinkMonitor\UnmonitoredProducts\Data as DataUntrackedProductLinksJob;
 
 class MenuServiceProvider extends ServiceProvider
 {
@@ -30,81 +24,46 @@ class MenuServiceProvider extends ServiceProvider
     {
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
             $menu = [
-                'MAIN NAVIGATION',
                 [
-                    'text' => 'Blog',
-                    'url' => 'admin/blog',
-                    'can' => 'manage-blog',
+                    'text' => trans('menu.dashboard'),
+                    'url' => route('dashboard'),
+                    'icon' => 'dashboard',
                 ],
                 [
-                    'text' => 'Pages',
-                    'url' => 'admin/pages',
-                    'icon' => 'file',
-                    'label' => 4,
-                    'label_color' => 'success',
-                ],
-                'ACCOUNT SETTINGS',
-                [
-                    'text' => 'Profile',
-                    'url' => 'admin/settings',
-                    'icon' => 'user',
+                    'text' => trans('menu.workspaces'),
+                    'url' => route('workspaces.index'),
+                    'icon' => 'laptop',
+                    'can' => 'list',
+                    'model' => Workspace::class
                 ],
                 [
-                    'text' => 'Change Password',
-                    'url' => 'admin/settings',
-                    'icon' => 'lock',
+                    'text' => trans('menu.users'),
+                    'url' => route('workspace::users.index'),
+                    'icon' => 'users',
+                    'can' => 'list',
+                    'model' => User::class
                 ],
                 [
-                    'text' => 'Multilevel',
-                    'icon' => 'share',
-                    'submenu' => [
-                        [
-                            'text' => 'Level One',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'Level One',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'Level Two',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'Level Two',
-                                    'url' => '#',
-                                    'submenu' => [
-                                        [
-                                            'text' => 'Level Three',
-                                            'url' => '#',
-                                        ],
-                                        [
-                                            'text' => 'Level Three',
-                                            'url' => '#',
-                                        ],
-                                    ],
-                                ],
-                            ],
-                        ],
-                        [
-                            'text' => 'Level One',
-                            'url' => '#',
-                        ],
-                    ],
-                ],
-                'LABELS',
-                [
-                    'text' => 'Important',
-                    'icon_color' => 'red',
+                    'text' => trans('menu.api_keys'),
+                    'url' => route('workspace::api-keys.index'),
+                    'icon' => 'key',
+                    'can' => 'list',
+                    'model' => WorkspaceApiKey::class
                 ],
                 [
-                    'text' => 'Warning',
-                    'icon_color' => 'yellow',
+                    'text' => trans('menu.visitors'),
+                    'url' => route('workspace::visitors.index'),
+                    'icon' => 'users',
+                    'can' => 'list',
+                    'model' => Visitor::class
                 ],
                 [
-                    'text' => 'Information',
-                    'icon_color' => 'aqua',
-                ],
+                    'text' => trans('menu.chats'),
+                    'url' => route('workspace::chats.index'),
+                    'icon' => 'comments-o',
+                    'can' => 'list',
+                    'model' => Chat::class
+                ]
             ];
 
             call_user_func_array([$event->menu, 'add'], $menu);

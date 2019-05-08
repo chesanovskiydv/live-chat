@@ -25,6 +25,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::guessPolicyNamesUsing(function ($class) {
+            $classDirname = str_replace('/', '\\', dirname(str_replace('\\', '/', $class), 2));
+
+            return [$classDirname.'\\Policies\\'.class_basename($class).'Policy'];
+        });
     }
 }

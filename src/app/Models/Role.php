@@ -34,24 +34,6 @@ class Role extends LaratrustRole
     const USER = 'user';
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'display_name', 'description',
-    ];
-
-    /**
-     * The attributes that should be visible in serialization.
-     *
-     * @var array
-     */
-    protected $visible = [
-        'name', 'display_name', 'description',
-    ];
-
-    /**
      * The workspaces that belong to the role.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

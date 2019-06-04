@@ -110,6 +110,11 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 @yield('content_header')
+
+                @if(Breadcrumbs::exists())
+                    {{ Breadcrumbs::render() }}
+                    {{ Breadcrumbs::view('breadcrumbs::json-ld') }}
+                @endif
             </section>
 
             <!-- Main content -->

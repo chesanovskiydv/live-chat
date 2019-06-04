@@ -22,7 +22,7 @@ Route::group(['middleware' => ['auth']], function (Router $router) {
     /**
      * GET|HEAD      /                                               dashboard
      */
-    $router->get('/', 'DashboardController@index')->name('dashboard');
+    $router->get('/', 'DashboardController')->name('dashboard');
 
     /*
      * "Super Admin" role section

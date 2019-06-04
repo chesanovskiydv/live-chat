@@ -13,7 +13,7 @@ return array(
 
     'filename'  => '_ide_helper',
     'format'    => 'php',
-    
+
     'meta_filename' => '.phpstorm.meta.php',
 
     /*
@@ -67,6 +67,7 @@ return array(
 
     'helper_files' => array(
         base_path().'/vendor/laravel/framework/src/Illuminate/Support/helpers.php',
+        app_path().'/Support/helpers.php'
     ),
 
     /*
@@ -108,7 +109,11 @@ return array(
             'critical'  => 'Monolog\Logger::addCritical',
             'alert'     => 'Monolog\Logger::addAlert',
             'emergency' => 'Monolog\Logger::addEmergency',
-        )
+        ),
+        'Form' => array(
+            'searchForm' => 'App\Html\Macros\SearchForm::__invoke',
+            'actions' => 'App\Html\Macros\Actions::__invoke',
+        ),
     ),
 
     /*

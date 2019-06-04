@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 2',
+    'title' => 'Chatter',
 
     'title_prefix' => '',
 
@@ -85,7 +85,7 @@ return [
     |
     */
 
-    'dashboard_url' => 'home',
+    'dashboard_url' => '',
 
     'logout_url' => 'logout',
 
@@ -142,6 +142,7 @@ return [
 
     'plugins' => [
         'datatables' => false,
+        'emodal' => true,
         'select2' => true,
         'chartjs' => false,
     ],

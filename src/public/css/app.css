@@ -1,8 +1,8 @@
-.action-form {
-  display: none;
+th.key {
+  width: 50px;
 }
 
-.box-tools .search-form {
-  width: 150px;
+th.actions {
+  width: 100px;
 }
 

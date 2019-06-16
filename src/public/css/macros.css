@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+.action-form {
+  display: none;
+}
+
+.box-tools .search-form {
+  width: 150px;
+}
+
+thead th {
+  position: relative;
+}
+
+thead th .sorting {
+  display: block;
+  margin: -8px;
+  padding: 8px;
+  color: #333;
+}
+
+thead th .sorting:after {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: block;
+  font-family: "Glyphicons Halflings";
+  opacity: 0.2;
+  content: "\E150";
+}
+
+thead th .sorting.sorting_asc:after {
+  content: "\E155";
+  opacity: 0.5;
+}
+
+thead th .sorting.sorting_desc:after {
+  content: "\E156";
+  opacity: 0.5;
+}
+

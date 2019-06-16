@@ -110,9 +110,10 @@ return array(
             'alert'     => 'Monolog\Logger::addAlert',
             'emergency' => 'Monolog\Logger::addEmergency',
         ),
-        'Form' => array(
+        'Html' => array(
             'searchForm' => 'App\Html\Macros\SearchForm::__invoke',
             'actions' => 'App\Html\Macros\Actions::__invoke',
+            'sortableLink' => 'App\Html\Macros\SortableLink::__invoke',
         ),
     ),
 

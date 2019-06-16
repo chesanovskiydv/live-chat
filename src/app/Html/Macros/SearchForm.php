@@ -7,6 +7,7 @@ use Collective\Html\FormBuilder;
 use Collective\Html\HtmlBuilder;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Illuminate\Contracts\Routing\UrlGenerator;
 
@@ -239,8 +240,7 @@ class SearchForm extends BaseMacros
                 }, array_merge([$searchName], $except))
             )
         );
-
-        foreach ($requestFields as $name => $value) {
+        foreach (keys_to_strings($requestFields) as $name => $value) {
             $content .= $this->form->hidden($name, $value);
         }
 

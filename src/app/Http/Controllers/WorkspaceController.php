@@ -2,18 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Html\Macros\SearchForm;
+use App\Models\Workspace;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\Filter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class WorkspaceController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $workspaces = QueryBuilder::for (Workspace::class)
+            ->allowedFilters(Filter::partial(SearchForm::DEFAULT_SEARCH_NAME, 'display_name'))
+            ->defaultSort('-' . Workspace::CREATED_AT)
+            ->allowedSorts(Workspace::CREATED_AT, 'display_name')
+            ->paginate($request->get('per-page'))
+            ->appends($request->except('page'));
+
+        return view('workspace.index', [
+            'workspaces' => $workspaces
+        ]);
     }
 
     /**
@@ -29,7 +44,8 @@ class WorkspaceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -40,7 +56,8 @@ class WorkspaceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -51,7 +68,8 @@ class WorkspaceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -62,8 +80,9 @@ class WorkspaceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -74,7 +93,8 @@ class WorkspaceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

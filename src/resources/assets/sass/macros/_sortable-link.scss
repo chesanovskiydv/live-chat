@@ -1,0 +1,35 @@
+thead {
+  th {
+    position: relative;
+
+    .sorting {
+      display: block;
+      margin: -8px;
+      padding: 8px;
+      color: #333;
+
+      &:after {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        display: block;
+        font-family: 'Glyphicons Halflings';
+        opacity: 0.2;
+        content: "\e150";
+      }
+
+      &.sorting_asc {
+        &:after {
+          content: "\e155";
+          opacity: 0.5;
+        }
+      }
+      &.sorting_desc {
+        &:after {
+          content: "\e156";
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+}

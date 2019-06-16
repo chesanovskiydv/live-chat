@@ -27,6 +27,10 @@
         <!-- DataTables with bootstrap 3 style -->
         <link rel="stylesheet" href="//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css">
     @endif
+
+    <!-- Macros -->
+    <link href="{{ asset('css/macros.css') }}" rel="stylesheet">
+
     <!-- Main styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 

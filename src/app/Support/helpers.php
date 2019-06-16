@@ -53,3 +53,16 @@ if (!function_exists('keys_to_strings')) {
         });
     }
 }
+
+if (!function_exists('route_name_to_translation_key')) {
+
+    /**
+     * @param string $routeName
+     *
+     * @return string
+     */
+    function route_name_to_translation_key(string $routeName): string
+    {
+        return 'titles.' . str_replace('::', '.', $routeName);
+    }
+}

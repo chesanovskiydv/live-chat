@@ -1,45 +1,49 @@
 <?php
-// @todo: translations !!!!
+
 // Dashboard
 Breadcrumbs::for('dashboard', function ($trail) {
     /** @var DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator $trail */
-    $trail->push('Dashboard', route('dashboard'));
+    $trail->push(trans(route_name_to_translation_key('dashboard')), route('dashboard'));
 });
 
-Breadcrumbs::macro('resource', function ($name, $title) {
-    // Home > Blog
-    Breadcrumbs::for("{$name}.index", function ($trail) use ($name, $title) {
-        /** @var DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator $trail */
-        $trail->parent('dashboard');
-        $trail->push($title, route("{$name}.index"));
-    });
+Breadcrumbs::macro('resource', function ($name) {
+    // Index
+    if (Route::has("{$name}.index")) {
+        Breadcrumbs::for ("{$name}.index", function ($trail) use ($name) {
+            /** @var DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator $trail */
+            $trail->parent('dashboard');
+            $trail->push(trans(route_name_to_translation_key("{$name}.index")) , route("{$name}.index"));
+        });
+    }
 
-    // Home > Blog > New
-    Breadcrumbs::for("{$name}.create", function ($trail) use ($name) {
-        /** @var DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator $trail */
-        $trail->parent("{$name}.index");
-        $trail->push('New', route("{$name}.create"));
-    });
+    // Create
+    if (Route::has("{$name}.create")) {
+        Breadcrumbs::for ("{$name}.create", function ($trail) use ($name) {
+            /** @var DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator $trail */
+            $trail->parent(Route::has("{$name}.index") ? "{$name}.index" : "dashboard");
+            $trail->push(trans(route_name_to_translation_key("{$name}.create")), route("{$name}.create"));
+        });
+    }
 
-    // Home > Blog > Post 123
-    Breadcrumbs::for("{$name}.show", function ($trail, $model) use ($name) {
-        /** @var DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator $trail */
-        $trail->parent("{$name}.index");
-        $trail->push($model->title, route("{$name}.show", $model));
-    });
+    // Show
+    if (Route::has("{$name}.show")) {
+        Breadcrumbs::for ("{$name}.show", function ($trail, $model) use ($name) {
+            /** @var DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator $trail */
+            $trail->parent(Route::has("{$name}.index") ? "{$name}.index" : "dashboard");
+            $trail->push(trans(route_name_to_translation_key("{$name}.show")), route("{$name}.show", $model));
+        });
+    }
 
-    // Home > Blog > Post 123 > Edit
-    Breadcrumbs::for("{$name}.edit", function ($trail, $model) use ($name) {
-        /** @var DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator $trail */
-        $trail->parent("{$name}.show", $model);
-        $trail->push('Edit', route("{$name}.edit", $model));
-    });
+    // Edit
+    if (Route::has("{$name}.edit")) {
+        Breadcrumbs::for ("{$name}.edit", function ($trail, $model) use ($name) {
+            /** @var DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator $trail */
+            $trail->parent(Arr::first(["{$name}.show", "{$name}.index"], function ($routeName) {
+                    return Route::has($routeName);
+                }) ?? "dashboard", $model);
+            $trail->push(trans(route_name_to_translation_key("{$name}.edit")), route("{$name}.edit", $model));
+        });
+    }
 });
 
-Breadcrumbs::resource('workspaces', trans_choice('workspace.workspace', PHP_INT_MAX));
-
-//Breadcrumbs::for('workspaces.index', function ($trail) {
-//    /** @var DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator $trail */
-//    $trail->parent('dashboard');
-//    $trail->push(trans_choice('workspace.workspace', PHP_INT_MAX), route('workspaces.index'));
-//});
+Breadcrumbs::resource('workspaces');

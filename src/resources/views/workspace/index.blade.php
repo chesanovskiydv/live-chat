@@ -6,8 +6,6 @@
 
 @extends('adminlte::page')
 
-@section('title', trans_choice('workspace.workspace', PHP_INT_MAX))
-
 @section('content_header')
     <h1>@choice('workspace.workspace', PHP_INT_MAX)</h1>
 @stop

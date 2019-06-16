@@ -12,5 +12,19 @@
 //  background-color: #fff;
 //  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 //}
-
 @import "tables";
+
+.box-footer {
+  .actions {
+
+    @media (max-width: 768px) {
+      .btn {
+        display: block;
+        margin-bottom: 15px;
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}

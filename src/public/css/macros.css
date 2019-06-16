@@ -4,6 +4,34 @@
   display: none;
 }
 
+.pagination-info {
+  padding-top: 7px;
+  padding-bottom: 7px;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .pagination-info {
+    text-align: center;
+  }
+}
+
+.pagination-container {
+  white-space: nowrap;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .pagination-container {
+    text-align: center;
+  }
+}
+
+.pagination-container .pagination {
+  margin: 2px 0;
+  white-space: nowrap;
+}
+
 .box-tools .search-form {
   width: 150px;
 }

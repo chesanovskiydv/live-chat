@@ -1,4 +1,5 @@
 <?php
+// @todo: translations !!!!
 // Dashboard
 Breadcrumbs::for('dashboard', function ($trail) {
     /** @var DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator $trail */
@@ -34,3 +35,11 @@ Breadcrumbs::macro('resource', function ($name, $title) {
         $trail->push('Edit', route("{$name}.edit", $model));
     });
 });
+
+Breadcrumbs::resource('workspaces', trans_choice('workspace.workspace', PHP_INT_MAX));
+
+//Breadcrumbs::for('workspaces.index', function ($trail) {
+//    /** @var DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator $trail */
+//    $trail->parent('dashboard');
+//    $trail->push(trans_choice('workspace.workspace', PHP_INT_MAX), route('workspaces.index'));
+//});

@@ -1,0 +1,23 @@
+.pagination-info {
+  padding-top: 7px;
+  padding-bottom: 7px;
+  white-space: nowrap;
+  @media (max-width: 768px) {
+    text-align: center;
+  }
+}
+
+.pagination-container {
+  white-space: nowrap;
+  text-align: right;
+  @media (max-width: 768px) {
+    text-align: center;
+  }
+
+  .pagination {
+    margin: 2px 0;
+    white-space: nowrap;
+  }
+}
+
+

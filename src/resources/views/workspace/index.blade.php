@@ -1,6 +1,6 @@
 <?php
 /**
- * @var \Illuminate\Contracts\Pagination\LengthAwarePaginator|\App\Models\Workspace[] $workspaces
+ * @var \Illuminate\Pagination\LengthAwarePaginator|\App\Models\Workspace[] $workspaces
  */
 ?>
 
@@ -69,11 +69,14 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    <a href="{{ route('workspaces.create') }}" class="btn btn-primary">
-                        @lang('grid.create_new_record', ['record' => trans_choice('workspace.workspace', 1)])
-                    </a>
-
-                    {{ $workspaces->links() }}
+                    {{ Html::pagination($workspaces) }}
+                    <div class="row actions">
+                        <div class="col-sm-12">
+                            <a href="{{ route('workspaces.create') }}" class="btn btn-primary">
+                                @lang('grid.create_new_record', ['record' => trans_choice('workspace.workspace', 1)])
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- /.box -->

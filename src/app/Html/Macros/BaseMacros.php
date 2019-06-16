@@ -42,10 +42,10 @@ abstract class BaseMacros
     /**
      * Create a new macros instance.
      *
-     * @param HtmlBuilder $html
-     * @param FormBuilder $form
-     * @param UrlGenerator $url
-     * @param Request $request
+     * @param \Collective\Html\HtmlBuilder $html
+     * @param \Collective\Html\FormBuilder $form
+     * @param \Illuminate\Contracts\Routing\UrlGenerator $url
+     * @param \Illuminate\Http\Request $request
      */
     public function __construct(HtmlBuilder $html, FormBuilder $form, UrlGenerator $url, Request $request)
     {

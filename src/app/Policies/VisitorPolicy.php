@@ -17,7 +17,7 @@ class VisitorPolicy
      *
      * @return bool
      */
-    public function list(User $user)
+    public function viewAny(User $user)
     {
         return $user->hasPermission('*-visitors', $user->activeWorkspace());
     }

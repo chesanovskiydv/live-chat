@@ -65,6 +65,13 @@
 @if(config('adminlte.plugins.datatables'))
     <!-- DataTables with bootstrap 3 renderer -->
     <script src="//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js"></script>
+    <script>
+        $.extend( true, $.fn.dataTable.defaults, {
+            language: {
+                url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/{{ LaravelLocalization::getCurrentLocaleName() }}.json"
+            }
+        } );
+    </script>
 @endif
 
 @if(config('adminlte.plugins.chartjs'))

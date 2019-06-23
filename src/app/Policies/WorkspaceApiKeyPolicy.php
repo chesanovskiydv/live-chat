@@ -17,7 +17,7 @@ class WorkspaceApiKeyPolicy
      *
      * @return bool
      */
-    public function list(User $user)
+    public function viewAny(User $user)
     {
         return $user->hasPermission('*-api_keys', $user->activeWorkspace());
     }

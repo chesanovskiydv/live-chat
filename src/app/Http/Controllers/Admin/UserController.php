@@ -1,34 +1,45 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Html\Macros\SearchForm;
-use App\Models\Workspace;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Spatie\QueryBuilder\Filter;
-use Spatie\QueryBuilder\QueryBuilder;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\User\{
+    Index as IndexUserRequest
+};
 
-class WorkspaceController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param IndexUserRequest $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(IndexUserRequest $request)
     {
-        $workspaces = QueryBuilder::for (Workspace::class)
-            ->allowedFilters(Filter::partial(SearchForm::DEFAULT_SEARCH_NAME, 'display_name'))
-            ->defaultSort('-' . Workspace::CREATED_AT)
-            ->allowedSorts(Workspace::CREATED_AT, 'display_name')
-            ->paginate($request->get('per-page'))
-            ->appends($request->except('page'));
+        if ($request->expectsJson()) {
+            return \DataTables::of(User::query())
+                ->addIndexColumn()
+                ->addColumn('action', function (User $user) {
+                    return \Html::actions([
+                        'update' => ['url' => route('admin::users.edit', ['user' => $user]), 'can' => ['update', $user]],
+                        'delete' => [
+                            'url' => route('admin::users.destroy', ['user' => $user]), 'method' => 'DELETE',
+                            'can' => ['delete', $user],
+                            'confirmation' => [
+                                'title' => __('form.confirmation.delete.title'),
+                                'text' => __('form.confirmation.delete.text'),
+                            ]
+                        ],
+                    ]);
+                })
+                ->make(true);
+        }
 
-        return view('workspace.index', [
-            'workspaces' => $workspaces
-        ]);
+        return view('admin.user.index');
     }
 
     /**
@@ -45,7 +56,6 @@ class WorkspaceController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -57,7 +67,6 @@ class WorkspaceController extends Controller
      * Display the specified resource.
      *
      * @param  int $id
-     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -69,7 +78,6 @@ class WorkspaceController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int $id
-     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -82,7 +90,6 @@ class WorkspaceController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int $id
-     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -94,7 +101,6 @@ class WorkspaceController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int $id
-     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

@@ -46,4 +46,5 @@ Breadcrumbs::macro('resource', function ($name) {
     }
 });
 
-Breadcrumbs::resource('workspaces');
+Breadcrumbs::resource('admin::workspaces');
+Breadcrumbs::resource('admin::users');

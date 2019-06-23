@@ -17,7 +17,7 @@ class ChatPolicy
      *
      * @return bool
      */
-    public function list(User $user)
+    public function viewAny(User $user)
     {
         return $user->hasPermission('*-chats', $user->activeWorkspace());
     }

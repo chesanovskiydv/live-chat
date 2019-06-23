@@ -141,7 +141,7 @@ return [
     */
 
     'plugins' => [
-        'datatables' => false,
+        'datatables' => true,
         'emodal' => true,
         'select2' => true,
         'chartjs' => false,

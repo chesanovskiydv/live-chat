@@ -19,16 +19,7 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table class="table table-bordered" id="workspaces-table">
-                        <thead>
-                        <tr>
-                            <th class="key">@lang('grid.key_column')</th>
-                            <th>@lang('workspace.name')</th>
-                            <th class="actions"></th>
-                        </tr>
-                        </thead>
-                        <!-- table content -->
-                    </table>
+                    {!! $dataTable->table() !!}
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
@@ -48,19 +39,5 @@
 @stop
 
 @push('js')
-<script>
-    $(document).ready(function () {
-        $('#workspaces-table').dataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '{{ route('admin::workspaces.index') }}',
-            columns: [
-                {data: 'DT_RowIndex', name: 'created_at'},
-                {data: 'name', name: 'name'},
-                {data: 'action', name: 'action', orderable: false, searchable: false}
-            ],
-            order: [[0, "desc"]]
-        });
-    });
-</script>
+{!! $dataTable->scripts() !!}
 @endpush

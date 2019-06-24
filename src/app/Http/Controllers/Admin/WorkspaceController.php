@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\WorkspacesDataTable;
 use App\Http\Controllers\Controller;
-use App\Models\Workspace;
 use Illuminate\Http\Request;
 use App\Http\Requests\Workspace\{
     Index as IndexWorkspaceRequest
@@ -20,27 +20,8 @@ class WorkspaceController extends Controller
      */
     public function index(IndexWorkspaceRequest $request)
     {
-        if ($request->expectsJson()) {
-            return \DataTables::of(Workspace::query())
-                ->addIndexColumn()
-                ->addColumn('action', function (Workspace $workspace) {
-                    return \ Html::actions([
-                        'view' => ['url' => route('admin::workspaces.show', ['workspace' => $workspace]), 'can' => ['view', $workspace]],
-                        'update' => ['url' => route('admin::workspaces.edit', ['workspace' => $workspace]), 'can' => ['update', $workspace]],
-                        'delete' => [
-                            'url' => route('admin::workspaces.destroy', ['workspace' => $workspace]), 'method' => 'DELETE',
-                            'can' => ['delete', $workspace],
-                            'confirmation' => [
-                                'title' => __('form.confirmation.delete.title'),
-                                'text' => __('form.confirmation.delete.text'),
-                            ]
-                        ],
-                    ]);
-                })
-                ->make(true);
-        }
-
-        return view('admin.workspace.index');
+        return (new WorkspacesDataTable())
+            ->render('admin.workspace.index');
     }
 
     /**

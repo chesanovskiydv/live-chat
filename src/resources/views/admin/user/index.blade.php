@@ -13,17 +13,7 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table class="table table-bordered" id="users-table">
-                        <thead>
-                        <tr>
-                            <th class="key">@lang('grid.key_column')</th>
-                            <th>@lang('user.name')</th>
-                            <th>@lang('user.email')</th>
-                            <th class="actions"></th>
-                        </tr>
-                        </thead>
-                        <!-- table content -->
-                    </table>
+                    {!! $dataTable->table() !!}
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
@@ -43,20 +33,5 @@
 @stop
 
 @push('js')
-<script>
-    $(document).ready(function () {
-        $('#users-table').dataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '{{ route('admin::users.index') }}',
-            columns: [
-                {data: 'DT_RowIndex', name: 'created_at'},
-                {data: 'name', name: 'name'},
-                {data: 'email', name: 'email'},
-                {data: 'action', name: 'action', orderable: false, searchable: false}
-            ],
-            order: [[0, "desc"]]
-        });
-    });
-</script>
+{!! $dataTable->scripts() !!}
 @endpush

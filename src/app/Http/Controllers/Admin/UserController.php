@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
+use App\DataTables\UsersDataTable;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\{
@@ -20,26 +20,8 @@ class UserController extends Controller
      */
     public function index(IndexUserRequest $request)
     {
-        if ($request->expectsJson()) {
-            return \DataTables::of(User::query())
-                ->addIndexColumn()
-                ->addColumn('action', function (User $user) {
-                    return \Html::actions([
-                        'update' => ['url' => route('admin::users.edit', ['user' => $user]), 'can' => ['update', $user]],
-                        'delete' => [
-                            'url' => route('admin::users.destroy', ['user' => $user]), 'method' => 'DELETE',
-                            'can' => ['delete', $user],
-                            'confirmation' => [
-                                'title' => __('form.confirmation.delete.title'),
-                                'text' => __('form.confirmation.delete.text'),
-                            ]
-                        ],
-                    ]);
-                })
-                ->make(true);
-        }
-
-        return view('admin.user.index');
+        return (new UsersDataTable())
+            ->render('admin.user.index');
     }
 
     /**

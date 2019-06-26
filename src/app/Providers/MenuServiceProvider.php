@@ -8,6 +8,7 @@ use App\Models\{
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Telescope\Telescope;
 
 class MenuServiceProvider extends ServiceProvider
 {
@@ -33,10 +34,11 @@ class MenuServiceProvider extends ServiceProvider
             ];
 
             if (\Auth::user()->hasRole(Role::SUPER_ADMIN)) {
-                $menu = array_merge($menu, $this->getAdminMenuItems());
+                $menu = array_merge($menu, $this->getSuperAdminMenuItems());
             } else {
                 $menu = array_merge($menu, $this->getWorkspacesUsersMenuItems());
             }
+            $menu = array_merge($menu, $this->getDebugMenuItems());
 
             call_user_func_array([$event->menu, 'add'], $menu);
         });
@@ -45,7 +47,7 @@ class MenuServiceProvider extends ServiceProvider
     /**
      * @return array
      */
-    protected function getAdminMenuItems(): array
+    protected function getSuperAdminMenuItems(): array
     {
         return [
             [
@@ -124,5 +126,29 @@ class MenuServiceProvider extends ServiceProvider
                 ]
             ]
         ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getDebugMenuItems(): array
+    {
+        $items = [];
+        if (Telescope::check(request())) {
+            $items[] = [
+                'text' => trans('menu.telescope'),
+                'url' => route('telescope'),
+                'icon' => 'binoculars',
+                'target' => '_blank',
+                'active' => [
+                    route('telescope'),
+                    route('telescope') . '?*'
+                ]
+            ];
+        }
+
+        return empty($items) ? [] : array_merge([
+            mb_strtoupper(trans('menu.debugging'))
+        ], $items);
     }
 }

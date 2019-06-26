@@ -6,5 +6,7 @@ return [
     'users' => 'Users',
     'api_keys' => 'Api Keys',
     'visitors' => 'Visitors',
-    'chats' => 'Chats'
+    'chats' => 'Chats',
+    'telescope' => 'Telescope',
+    'debugging' => 'Debugging',
 ];

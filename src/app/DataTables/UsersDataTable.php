@@ -30,7 +30,11 @@ class UsersDataTable extends DataTable
                         ]
                     ],
                 ]);
-            });
+            })->setRowAttr([
+                'data-key' => function (User $user) {
+                    return $user->getKey();
+                },
+            ]);
     }
 
     /**
@@ -41,7 +45,7 @@ class UsersDataTable extends DataTable
      */
     public function query(User $model)
     {
-        return $model->newQuery()->select('name', 'email');
+        return $model->newQuery()->select('id', 'name', 'email');
     }
 
     /**
@@ -52,9 +56,10 @@ class UsersDataTable extends DataTable
     public function html()
     {
         return $this->builder()
+            ->setTableId('users-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '80px'])
+            ->addAction(['title' => __('grid.action_column'), 'class' => 'actions'])
             ->parameters($this->getBuilderParameters());
     }
 
@@ -66,7 +71,7 @@ class UsersDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            new Column(['data' => 'DT_RowIndex', 'name' => 'created_at', 'title' => __('grid.key_column'), 'width' => '50px']),
+            new Column(['data' => 'DT_RowIndex', 'name' => 'created_at', 'title' => __('grid.key_column'), 'class' => 'key']),
             new Column(['data' => 'name', 'name' => 'name', 'title' => __('user.name')]),
             new Column(['data' => 'email', 'name' => 'email', 'title' => __('user.email')]),
         ];

@@ -21,7 +21,7 @@ class UserController extends Controller
     public function index(IndexUserRequest $request)
     {
         return (new UsersDataTable())
-            ->render('admin.user.index');
+            ->render('admin::user.index');
     }
 
     /**

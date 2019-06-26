@@ -21,7 +21,7 @@ class WorkspaceController extends Controller
     public function index(IndexWorkspaceRequest $request)
     {
         return (new WorkspacesDataTable())
-            ->render('admin.workspace.index');
+            ->render('admin::workspace.index');
     }
 
     /**

@@ -16,5 +16,7 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('*', PageTitleComposer::class);
+
+        $this->loadViewsFrom(resource_path("views/admin"), 'admin');
     }
 }

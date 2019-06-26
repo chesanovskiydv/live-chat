@@ -6,6 +6,7 @@ return [
     'create_new_record' => 'Create New :Record',
 
     'key_column' => '#',
+    'action_column' => 'Actions',
     'edit' => 'Edit',
     'delete' => 'Delete',
 ];

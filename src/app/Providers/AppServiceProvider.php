@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if ($this->app->environment() === 'local') {
+        if ($this->app->isLocal()) {
             $this->registerForLocal();
         }
     }
@@ -38,8 +38,10 @@ class AppServiceProvider extends ServiceProvider
     {
         // IDE Helper Generator from "barryvdh/laravel-ide-helper" package
         $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
-        // Debug bar from "barryvdh/laravel-debugbar"
+        // Debug bar from "barryvdh/laravel-debugbar" package
         $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
         AliasLoader::getInstance(['Debugbar' => \Barryvdh\Debugbar\Facade::class]);
+        //  Debug assistant for the Laravel framework from "laravel/telescope" package
+        $this->app->register(TelescopeServiceProvider::class);
     }
 }

@@ -31,7 +31,11 @@ class WorkspacesDataTable extends DataTable
                         ]
                     ],
                 ]);
-            });
+            })->setRowAttr([
+                'data-key' => function (Workspace $user) {
+                    return $user->getKey();
+                },
+            ]);
     }
 
     /**
@@ -42,7 +46,7 @@ class WorkspacesDataTable extends DataTable
      */
     public function query(Workspace $model)
     {
-        return $model->newQuery()->select('name');
+        return $model->newQuery()->select('id', 'name');
     }
 
     /**
@@ -53,9 +57,10 @@ class WorkspacesDataTable extends DataTable
     public function html()
     {
         return $this->builder()
+            ->setTableId('workspaces-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '80px'])
+            ->addAction(['title' => __('grid.action_column'), 'class' => 'actions'])
             ->parameters($this->getBuilderParameters());
     }
 
@@ -67,7 +72,7 @@ class WorkspacesDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            new Column(['data' => 'DT_RowIndex', 'name' => 'created_at', 'title' => __('grid.key_column'), 'width' => '50px']),
+            new Column(['data' => 'DT_RowIndex', 'name' => 'created_at', 'title' => __('grid.key_column'), 'class' => 'key']),
             new Column(['data' => 'name', 'name' => 'name', 'title' => __('workspace.name')]),
         ];
     }

@@ -12,6 +12,7 @@ class UsersDataTable extends DataTable
      * Build DataTable class.
      *
      * @param mixed $query Results from query() method.
+     *
      * @return \Yajra\DataTables\DataTableAbstract
      */
     public function dataTable($query)
@@ -30,6 +31,8 @@ class UsersDataTable extends DataTable
                         ]
                     ],
                 ]);
+            })->editColumn('email', function (User $user) {
+                return \Html::mailto($user->email);
             })->setRowAttr([
                 'data-key' => function (User $user) {
                     return $user->getKey();
@@ -40,12 +43,13 @@ class UsersDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\User $model
+     * @param \App\Models\User $user
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(User $model)
+    public function query(User $user)
     {
-        return $model->newQuery()->select('id', 'name', 'email');
+        return $user->newQuery()->select('id', 'name', 'email');
     }
 
     /**

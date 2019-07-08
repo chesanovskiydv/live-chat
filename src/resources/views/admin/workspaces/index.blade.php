@@ -1,6 +1,6 @@
 <?php
 /**
- * @var \Illuminate\Pagination\LengthAwarePaginator|\App\Models\Workspace[] $workspaces
+ * @var \Yajra\DataTables\Html\Builder $dataTable
  */
 ?>
 
@@ -25,9 +25,7 @@
                 <div class="box-footer clearfix">
                     <div class="row actions">
                         <div class="col-sm-12">
-                            <a href="{{ route('admin::workspaces.create') }}" class="btn btn-primary">
-                                @lang('grid.create_new_record', ['record' => trans_choice('workspace.workspace', 1)])
-                            </a>
+                            {{ Html::linkRoute('admin::workspaces.create', __('grid.create_new_record', ['record' => trans_choice('workspace.workspace', 1)]), [], ['class' => 'btn btn-primary']) }}
                         </div>
                     </div>
                 </div>

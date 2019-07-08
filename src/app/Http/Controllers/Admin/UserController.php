@@ -3,10 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataTables\UsersDataTable;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\{
-    Index as IndexUserRequest
+    IndexRequest as IndexUserRequest,
+    CreateRequest as CreateUserRequest,
+    StoreRequest as StoreUserRequest
+};
+use App\Forms\User\ {
+    CreateForm as CreateUserForm
 };
 
 class UserController extends Controller
@@ -21,26 +27,32 @@ class UserController extends Controller
     public function index(IndexUserRequest $request)
     {
         return (new UsersDataTable())
-            ->render('admin::user.index');
+            ->render('admin::users.index');
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param CreateUserRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(CreateUserRequest $request)
     {
-        //
+        return view('admin::users.create', [
+            'form' => \FormBuilder::create(CreateUserForm::class),
+            'user' => User::newModelInstance()
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreUserRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
         //
     }

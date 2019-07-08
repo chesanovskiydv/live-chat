@@ -2,13 +2,11 @@
 
 namespace App\Providers;
 
-use App\Html\Macros\Actions;
-use App\Html\Macros\Pagination;
-use App\Html\Macros\Sortablelink;
-use App\Html\Macros\SearchForm;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
-use Illuminate\View\View;
+use App\Html\Macros\{
+    Actions, Pagination, Sortablelink, SearchForm, Form
+};
 
 class HtmlServiceProvider extends ServiceProvider
 {
@@ -34,5 +32,7 @@ class HtmlServiceProvider extends ServiceProvider
         ]), '__invoke']);
 
         \Html::macro('pagination', [app(Pagination::class), '__invoke']);
+
+        \Html::macro('form', [app(Form::class), '__invoke']);
     }
 }

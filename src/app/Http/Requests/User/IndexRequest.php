@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\User;
 
+use App\Http\Requests\BaseFormRequest;
 use App\Models\User;
-use Illuminate\Foundation\Http\FormRequest;
 
-class Index extends FormRequest
+class IndexRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,17 +15,5 @@ class Index extends FormRequest
     public function authorize()
     {
         return $this->user()->can('viewAny', User::class);
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [
-            //
-        ];
     }
 }

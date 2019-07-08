@@ -154,8 +154,8 @@ class Actions extends BaseMacros
     protected function getConfirmationAttributes($confirmation): array
     {
         return [
-            "{$this->prefix}-confirmation-title" => Arr::get($confirmation, 'title', __('macros.search_form.confirmation_title')),
-            "{$this->prefix}-confirmation-text" => Arr::get($confirmation, 'text', __('macros.search_form.confirmation_text'))
+            "{$this->prefix}-confirmation-title" => Arr::get($confirmation, 'title', __('macros.actions.confirmation_title')),
+            "{$this->prefix}-confirmation-text" => Arr::get($confirmation, 'text', __('macros.actions.confirmation_text'))
         ];
     }
 
@@ -169,7 +169,7 @@ class Actions extends BaseMacros
      */
     public function viewAction(string $url, array $options = []): HtmlString
     {
-        $defaults = ['title' => '<span class="fa fa-fw fa-eye"></span>'];
+        $defaults = ['title' => '<span class="fa fa-fw fa-eye"></span>', 'attributes' => ['title' => __('macros.actions.view')]];
 
         $options = array_merge($defaults, $options);
 
@@ -186,7 +186,7 @@ class Actions extends BaseMacros
      */
     public function updateAction(string $url, array $options = []): HtmlString
     {
-        $defaults = ['title' => '<span class="fa fa-fw fa-pencil"></span>'];
+        $defaults = ['title' => '<span class="fa fa-fw fa-pencil"></span>', 'attributes' => ['title' => __('macros.actions.edit')]];
 
         $options = array_merge($defaults, $options);
 
@@ -203,7 +203,7 @@ class Actions extends BaseMacros
      */
     public function deleteAction(string $url, array $options = []): HtmlString
     {
-        $defaults = ['title' => '<span class="fa fa-fw fa-trash-o"></span>'];
+        $defaults = ['title' => '<span class="fa fa-fw fa-trash-o"></span>', 'attributes' => ['title' => __('macros.actions.delete')]];
 
         $options = array_merge($defaults, $options);
 

@@ -12,6 +12,7 @@
         "davejamesmiller/laravel-breadcrumbs": "5.x",
         "fideloper/proxy": "^4.0",
         "jeroennoten/laravel-adminlte": "^1.25",
+        "kris/laravel-form-builder": "^1.20",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.8.0",

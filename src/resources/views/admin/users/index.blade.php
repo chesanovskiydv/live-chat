@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var \Yajra\DataTables\Html\Builder $dataTable
+ */
+?>
+
 @extends('adminlte::page')
 
 @section('content_header')
@@ -19,9 +25,7 @@
                 <div class="box-footer clearfix">
                     <div class="row actions">
                         <div class="col-sm-12">
-                            <a href="{{ route('admin::users.create') }}" class="btn btn-primary">
-                                @lang('grid.create_new_record', ['record' => trans_choice('user.user', 1)])
-                            </a>
+                            {{ Html::linkRoute('admin::users.create', __('grid.create_new_record', ['record' => trans_choice('user.user', 1)]), [], ['class' => 'btn btn-primary']) }}
                         </div>
                     </div>
                 </div>

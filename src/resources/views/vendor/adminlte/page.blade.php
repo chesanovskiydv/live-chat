@@ -120,6 +120,8 @@
             <!-- Main content -->
             <section class="content">
 
+                @include('flash::message')
+
                 @yield('content')
 
             </section>
@@ -137,6 +139,11 @@
 
 @section('adminlte_js')
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
+    <script>
+        $(function() {
+            $('#flash-overlay-modal').modal();
+        });
+    </script>
     @stack('js')
     @yield('js')
 @stop

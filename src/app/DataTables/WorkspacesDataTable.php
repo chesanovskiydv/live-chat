@@ -73,7 +73,7 @@ class WorkspacesDataTable extends DataTable
     {
         return [
             new Column(['data' => 'DT_RowIndex', 'name' => 'created_at', 'title' => __('grid.key_column'), 'class' => 'key']),
-            new Column(['data' => 'name', 'name' => 'name', 'title' => __('workspace.name')]),
+            new Column(['data' => 'name', 'name' => 'name', 'title' => __('workspaces.name')]),
         ];
     }
 

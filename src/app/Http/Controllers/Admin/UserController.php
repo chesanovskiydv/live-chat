@@ -57,7 +57,13 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        (new CreateUserAction())->run($request->all());
+        $user = (new CreateUserAction())
+            ->run($request->all());
+
+        if ($user) {
+            flash(__('flash.successfully_created', ['item' => trans_choice('users.user', 1)]))
+                ->success()->important();
+        }
 
         return redirect()->route('admin::users.index');
     }

@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('content_header')
-    <h1>@lang('form.create_record', ['record' => trans_choice('user.user', 1)])</h1>
+    <h1>@lang('form.create_record', ['record' => trans_choice('users.user', 1)])</h1>
 @stop
 
 @section('content')

@@ -76,8 +76,8 @@ class UsersDataTable extends DataTable
     {
         return [
             new Column(['data' => 'DT_RowIndex', 'name' => 'created_at', 'title' => __('grid.key_column'), 'class' => 'key']),
-            new Column(['data' => 'name', 'name' => 'name', 'title' => __('user.name')]),
-            new Column(['data' => 'email', 'name' => 'email', 'title' => __('user.email')]),
+            new Column(['data' => 'name', 'name' => 'name', 'title' => __('users.name')]),
+            new Column(['data' => 'email', 'name' => 'email', 'title' => __('users.email')]),
         ];
     }
 

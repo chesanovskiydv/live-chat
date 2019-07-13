@@ -7,7 +7,7 @@
 @extends('adminlte::page')
 
 @section('content_header')
-    <h1>@choice('workspace.workspace', PHP_INT_MAX)</h1>
+    <h1>@choice('workspaces.workspace', PHP_INT_MAX)</h1>
 @stop
 
 @section('content')
@@ -15,7 +15,7 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">@lang('grid.list_of_records', ['record' => trans_choice('workspace.workspace', PHP_INT_MAX)])</h3>
+                    <h3 class="box-title">@lang('grid.list_of_records', ['record' => trans_choice('workspaces.workspace', PHP_INT_MAX)])</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -25,7 +25,7 @@
                 <div class="box-footer clearfix">
                     <div class="row actions">
                         <div class="col-sm-12">
-                            {{ Html::linkRoute('admin::workspaces.create', __('grid.create_new_record', ['record' => trans_choice('workspace.workspace', 1)]), [], ['class' => 'btn btn-primary']) }}
+                            {{ Html::linkRoute('admin::workspaces.create', __('grid.create_new_record', ['record' => trans_choice('workspaces.workspace', 1)]), [], ['class' => 'btn btn-primary']) }}
                         </div>
                     </div>
                 </div>

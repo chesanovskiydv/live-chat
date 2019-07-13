@@ -111,8 +111,10 @@ return array(
             'emergency' => 'Monolog\Logger::addEmergency',
         ),
         'Html' => array(
-            'searchForm' => 'App\Html\Macros\SearchForm::__invoke',
             'actions' => 'App\Html\Macros\Actions::__invoke',
+            'form' => 'App\Html\Macros\Form::__invoke',
+            'pagination' => 'App\Html\Macros\Pagination::__invoke',
+            'searchForm' => 'App\Html\Macros\SearchForm::__invoke',
             'sortableLink' => 'App\Html\Macros\SortableLink::__invoke',
         ),
     ),

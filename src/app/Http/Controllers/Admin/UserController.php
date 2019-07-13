@@ -14,6 +14,9 @@ use App\Http\Requests\User\{
 use App\Forms\User\ {
     CreateForm as CreateUserForm
 };
+use App\Actions\User\{
+    Create as CreateUserAction
+};
 
 class UserController extends Controller
 {
@@ -54,7 +57,9 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        //
+        (new CreateUserAction())->run($request->all());
+
+        return redirect()->route('admin::users.index');
     }
 
     /**

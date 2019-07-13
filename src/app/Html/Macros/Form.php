@@ -38,10 +38,10 @@ class Form extends BaseMacros
     }
 
     /**
-     * @param KrisForm $form
-     * @param Model $model
+     * @param \Kris\LaravelFormBuilder\Form $form
+     * @param \Illuminate\Database\Eloquent\Model $model
      *
-     * @return HtmlString
+     * @return \Illuminate\Support\HtmlString
      */
     public function __invoke(KrisForm $form, Model $model): HtmlString
     {

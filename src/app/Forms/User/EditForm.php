@@ -6,7 +6,7 @@ use App\Models\Role;
 use App\Models\Workspace;
 use Kris\LaravelFormBuilder\Form;
 
-class CreateForm extends Form
+class EditForm extends Form
 {
     /**
      * @inheritdoc
@@ -16,7 +16,7 @@ class CreateForm extends Form
         $this->add('name', 'text', [
             'rules' => ['required', 'string', 'min:2', 'max:255'],
         ])->add('email', 'email', [
-            'rules' => ['required', 'string', 'email', 'max:255', 'unique:users']
+            'attr' => ['disabled' => true]
         ])->add('role', 'entity', [
             'class' => Role::class,
             'property' => 'display_name',
@@ -24,12 +24,14 @@ class CreateForm extends Form
             'query_builder' => function (Role $role) {
                 return $role->newQuery()->whereIn('name', [Role::ADMIN, Role::USER]);
             },
+            'selected' => $this->model->roles,
             'rules' => ['required', 'exists:roles,id']
         ])->add('workspace', 'entity', [
             'class' => Workspace::class,
             'property' => 'display_name',
             'empty_value' => ' ',
-            'rules' => ['required', 'exists:workspaces,id']
-        ])->compose(PasswordForm::class);
+            'selected' => $this->model->workspaces,
+            'attr' => ['disabled' => true]
+        ]);
     }
 }

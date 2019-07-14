@@ -44,14 +44,15 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function (Router $r
 
                 /**
                  * GET|HEAD      /admin/users                                       admin::users.index
-                 * GET|HEAD      /admin/users/{user}                                admin::users.show
                  * GET|HEAD      /admin/users/create                                admin::users.create
                  * POST          /admin/users/create                                admin::users.store
                  * GET|HEAD      /admin/users/{user}/edit                           admin::users.edit
                  * PUT|PATCH     /admin/users/{user}                                admin::users.update
                  * DELETE        /admin/users/{user}                                admin::users.destroy
                  */
-                $router->resource('users', 'UserController');
+                $router->resource('users', 'UserController', [
+                    'except' => ['show']
+                ]);
             });
 
         });

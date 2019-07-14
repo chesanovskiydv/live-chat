@@ -49,7 +49,8 @@ class UsersDataTable extends DataTable
      */
     public function query(User $user)
     {
-        return $user->newQuery()->select('id', 'name', 'email');
+        return $user->newQuery()
+            ->select('users.id', 'users.name', 'users.email');
     }
 
     /**
@@ -75,9 +76,9 @@ class UsersDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            new Column(['data' => 'DT_RowIndex', 'name' => 'created_at', 'title' => __('grid.key_column'), 'class' => 'key']),
-            new Column(['data' => 'name', 'name' => 'name', 'title' => __('users.name')]),
-            new Column(['data' => 'email', 'name' => 'email', 'title' => __('users.email')]),
+            new Column(['data' => 'DT_RowIndex', 'name' => 'users.created_at', 'title' => __('grid.key_column'), 'class' => 'key']),
+            new Column(['data' => 'name', 'name' => 'users.name', 'title' => __('users.name')]),
+            new Column(['data' => 'email', 'name' => 'users.email', 'title' => __('users.email')]),
         ];
     }
 

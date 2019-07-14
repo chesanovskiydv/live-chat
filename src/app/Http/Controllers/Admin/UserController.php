@@ -4,18 +4,23 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\UsersDataTable;
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\{
     IndexRequest as IndexUserRequest,
     CreateRequest as CreateUserRequest,
-    StoreRequest as StoreUserRequest
+    StoreRequest as StoreUserRequest,
+    EditRequest as EditUserRequest,
+    UpdateRequest as UpdateUserRequest,
+    DeleteRequest as DeleteUserRequest
 };
 use App\Forms\User\ {
-    CreateForm as CreateUserForm
+    CreateForm as CreateUserForm,
+    EditForm as EditUserForm
 };
 use App\Actions\User\{
-    Create as CreateUserAction
+    Create as CreateUserAction,
+    Update as UpdateUserAction,
+    Delete as DeleteUserAction
 };
 
 class UserController extends Controller
@@ -43,7 +48,10 @@ class UserController extends Controller
     public function create(CreateUserRequest $request)
     {
         return view('admin::users.create', [
-            'form' => \FormBuilder::create(CreateUserForm::class),
+            'form' => \FormBuilder::create(CreateUserForm::class, [
+                'method' => 'POST',
+                'url' => route('admin::users.store'),
+            ]),
             'user' => User::newModelInstance()
         ]);
     }
@@ -69,47 +77,64 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param EditUserRequest $request
+     * @param User $user
+     *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(EditUserRequest $request, User $user)
     {
-        //
+        return view('admin::users.edit', [
+            'form' => \FormBuilder::create(EditUserForm::class, [
+                'method' => 'PUT',
+                'url' => route('admin::users.update', ['user' => $user]),
+                'model' => $user
+            ]),
+            'user' => $user
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param UpdateUserRequest|\Illuminate\Http\Request $request
+     * @param User $user
+     *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $isUpdated = (new UpdateUserAction($user))
+            ->run($request->all());
+
+        if ($isUpdated) {
+            flash(__('flash.successfully_updated', ['item' => trans_choice('users.user', 1)]))
+                ->success()->important();
+        }
+
+        return redirect()->route('admin::users.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param DeleteUserRequest $request
+     * @param User $user
+     *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(DeleteUserRequest $request, User $user)
     {
-        //
+        $isDeleted = (new DeleteUserAction($user))
+            ->run($request->all());
+
+        if ($isDeleted) {
+            flash(__('flash.successfully_deleted', ['item' => trans_choice('users.user', 1)]))
+                ->success()->important();
+        }
+
+        return redirect()->route('admin::users.index');
     }
 }

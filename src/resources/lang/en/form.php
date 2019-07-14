@@ -6,6 +6,7 @@ return [
     'update' => 'Update',
     'cancel' => 'Cancel',
     'create_record' => 'Create :Record',
+    'edit_record' => 'Edit :Record',
     'confirmation' => [
         'delete' => [
             'title' => 'Delete confirmation',

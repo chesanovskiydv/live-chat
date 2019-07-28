@@ -18,7 +18,7 @@ class WorkspacesDataTable extends DataTable
     {
         return datatables($query)
             ->addIndexColumn()
-            ->addColumns(['created_at'])
+            ->addColumns(['users_count', 'created_at'])
             ->addColumn('action', function (Workspace $workspace) {
                 return \Html::actions([
                     'view' => ['url' => route('admin::workspaces.show', ['workspace' => $workspace]), 'can' => ['view', $workspace]],
@@ -33,10 +33,11 @@ class WorkspacesDataTable extends DataTable
                     ],
                 ]);
             })->setRowAttr([
-                'data-key' => function (Workspace $user) {
-                    return $user->getKey();
+                'data-key' => function (Workspace $workspace) {
+                    return $workspace->getKey();
                 },
-            ]);
+            ])
+            ->blacklist(config('datatables.columns.blacklist'));
     }
 
     /**
@@ -48,7 +49,8 @@ class WorkspacesDataTable extends DataTable
     public function query(Workspace $model)
     {
         return $model->newQuery()
-            ->select('workspaces.id', 'workspaces.name', 'workspaces.created_at');
+            ->select('workspaces.id', 'workspaces.display_name', 'workspaces.created_at')
+            ->withCount('users');
     }
 
     /**
@@ -82,7 +84,8 @@ class WorkspacesDataTable extends DataTable
                     'title' => __('grid.key_column'),
                     'orderable' => false, 'searchable' => false, 'exportable' => false]
             ),
-            new Column(['data' => 'name', 'name' => 'workspaces.name', 'title' => __('workspaces.name'), 'searchable' => false]),
+            new Column(['data' => 'display_name', 'name' => 'workspaces.display_name', 'title' => __('workspaces.name')]),
+            new Column(['data' => 'users_count', 'name' => 'users_count', 'title' => __('workspaces.users_count'), 'searchable' => false]),
             new Column(['data' => 'created_at', 'name' => 'workspaces.created_at', 'title' => __('workspaces.created_at'), 'searchable' => false]),
         ];
     }

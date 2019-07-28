@@ -13,6 +13,7 @@ use Laratrust\Models\LaratrustTeam;
  * @property string|null $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Visitor[] $visitors
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\WorkspaceApiKey[] $workspaceApiKeys
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Workspace newModelQuery()
@@ -45,6 +46,16 @@ class Workspace extends LaratrustTeam
     protected $visible = [
         'name', 'display_name', 'description',
     ];
+
+    /**
+     * The users that belong to the workspace.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function users()
+    {
+        return $this->getMorphByUserRelation('users');
+    }
 
     /**
      * The visitors that belong to the workspace.

@@ -18,6 +18,7 @@ class WorkspacesDataTable extends DataTable
     {
         return datatables($query)
             ->addIndexColumn()
+            ->addColumns(['created_at'])
             ->addColumn('action', function (Workspace $workspace) {
                 return \Html::actions([
                     'view' => ['url' => route('admin::workspaces.show', ['workspace' => $workspace]), 'can' => ['view', $workspace]],
@@ -46,7 +47,8 @@ class WorkspacesDataTable extends DataTable
      */
     public function query(Workspace $model)
     {
-        return $model->newQuery()->select('id', 'name');
+        return $model->newQuery()
+            ->select('workspaces.id', 'workspaces.name', 'workspaces.created_at');
     }
 
     /**
@@ -56,12 +58,15 @@ class WorkspacesDataTable extends DataTable
      */
     public function html()
     {
+        $columns = $this->getColumns();
+
         return $this->builder()
             ->setTableId('workspaces-table')
-            ->columns($this->getColumns())
+            ->columns($columns)
             ->minifiedAjax()
             ->addAction(['title' => __('grid.action_column'), 'class' => 'actions'])
-            ->parameters($this->getBuilderParameters());
+            ->parameters($this->getBuilderParameters())
+            ->orderBy(array_key_last($columns), 'desc');
     }
 
     /**
@@ -72,8 +77,13 @@ class WorkspacesDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            new Column(['data' => 'DT_RowIndex', 'name' => 'created_at', 'title' => __('grid.key_column'), 'class' => 'key']),
-            new Column(['data' => 'name', 'name' => 'name', 'title' => __('workspaces.name')]),
+            new Column([
+                    'data' => config('datatables.index_column'), 'name' => config('datatables.index_column'),
+                    'title' => __('grid.key_column'),
+                    'orderable' => false, 'searchable' => false, 'exportable' => false]
+            ),
+            new Column(['data' => 'name', 'name' => 'workspaces.name', 'title' => __('workspaces.name'), 'searchable' => false]),
+            new Column(['data' => 'created_at', 'name' => 'workspaces.created_at', 'title' => __('workspaces.created_at'), 'searchable' => false]),
         ];
     }
 

@@ -2,5 +2,6 @@
 
 return [
     'workspace' => 'Workspace|Workspaces',
-    'name' => 'Name'
+    'name' => 'Name',
+    'created_at' => 'Created at'
 ];

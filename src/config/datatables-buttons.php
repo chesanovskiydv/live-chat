@@ -57,7 +57,7 @@ return [
      * Default html builder parameters.
      */
     'parameters' => [
-        'order'   => [[0, 'desc']],
+        'order'   => [],
         'buttons' => [
             'create',
             'export',

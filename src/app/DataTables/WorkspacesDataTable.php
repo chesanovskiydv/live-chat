@@ -21,7 +21,6 @@ class WorkspacesDataTable extends DataTable
             ->addColumns(['users_count', 'created_at'])
             ->addColumn('action', function (Workspace $workspace) {
                 return \Html::actions([
-                    'view' => ['url' => route('admin::workspaces.show', ['workspace' => $workspace]), 'can' => ['view', $workspace]],
                     'update' => ['url' => route('admin::workspaces.edit', ['workspace' => $workspace]), 'can' => ['update', $workspace]],
                     'delete' => [
                         'url' => route('admin::workspaces.destroy', ['workspace' => $workspace]), 'method' => 'DELETE',

@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var \Kris\LaravelFormBuilder\Form $form
+ * @var \App\Models\User $user
+ */
+?>
 @extends('adminlte::page')
 
 @section('content_header')

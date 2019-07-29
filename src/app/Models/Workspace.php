@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Laratrust\Models\LaratrustTeam;
 
 /**
@@ -29,13 +30,15 @@ use Laratrust\Models\LaratrustTeam;
  */
 class Workspace extends LaratrustTeam
 {
+    use Sluggable;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'display_name', 'description',
+        'display_name', 'description',
     ];
 
     /**
@@ -46,6 +49,20 @@ class Workspace extends LaratrustTeam
     protected $visible = [
         'name', 'display_name', 'description',
     ];
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'name' => [
+                'source' => 'display_name'
+            ]
+        ];
+    }
 
     /**
      * The users that belong to the workspace.

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataTables\UsersDataTable;
-use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Http\Requests\User\{
     IndexRequest as IndexUserRequest,
     CreateRequest as CreateUserRequest,

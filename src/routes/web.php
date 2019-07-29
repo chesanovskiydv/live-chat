@@ -33,14 +33,15 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function (Router $r
 
                 /**
                  * GET|HEAD      /admin/workspaces                                  admin::workspaces.index
-                 * GET|HEAD      /admin/workspaces/{workspace}                      admin::workspaces.show
                  * GET|HEAD      /admin/workspaces/create                           admin::workspaces.create
                  * POST          /admin/workspaces/create                           admin::workspaces.store
                  * GET|HEAD      /admin/workspaces/{workspace}/edit                 admin::workspaces.edit
                  * PUT|PATCH     /admin/workspaces/{workspace}                      admin::workspaces.update
                  * DELETE        /admin/workspaces/{workspace}                      admin::workspaces.destroy
                  */
-                $router->resource('workspaces', 'WorkspaceController');
+                $router->resource('workspaces', 'WorkspaceController', [
+                    'except' => ['show']
+                ]);
 
                 /**
                  * GET|HEAD      /admin/users                                       admin::users.index

@@ -97,7 +97,7 @@ return [
     ],
 
     'ignore_commands' => [
-        //
+        'db:seed'
     ],
 
     /*

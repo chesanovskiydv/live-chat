@@ -20,7 +20,7 @@ class UsersDataTable extends DataTable
     {
         return datatables($query)
             ->addIndexColumn()
-            ->addColumns(['workspace_display_name', 'created_at'])
+            ->addColumns(['workspace_display_name', 'role_display_name', 'created_at'])
             ->addColumn('action', function (User $user) {
                 return \Html::actions([
                     'update' => ['url' => route('admin::users.edit', ['user' => $user]), 'can' => ['update', $user]],
@@ -52,17 +52,20 @@ class UsersDataTable extends DataTable
     public function query(User $user)
     {
         $roleUser = config('laratrust.tables.role_user');
+        $roles = config('laratrust.tables.roles');
 
         return $user->newQuery()
             ->select(
                 'users.id', 'users.name', 'users.email', 'users.created_at',
-                'workspaces.id as workspace_id', 'workspaces.display_name as workspace_display_name'
+                'workspaces.id as workspace_id', 'workspaces.display_name as workspace_display_name',
+                "{$roles}.display_name as role_display_name"
             )
             ->leftJoin($roleUser, function (JoinClause $query) use ($roleUser, $user) {
                 $query->on("{$roleUser}.user_id", "users.id")
                     ->where("{$roleUser}.user_type", $user->getMorphClass());
             })
-            ->leftJoin('workspaces', "{$roleUser}.workspace_id", 'workspaces.id');
+            ->leftJoin('workspaces', "{$roleUser}.workspace_id", 'workspaces.id')
+            ->leftJoin($roles, "{$roles}.id", "{$roleUser}.role_id");
     }
 
     /**
@@ -90,6 +93,8 @@ class UsersDataTable extends DataTable
      */
     protected function getColumns()
     {
+        $roles = config('laratrust.tables.roles');
+
         return [
             new Column([
                     'data' => config('datatables.index_column'), 'name' => config('datatables.index_column'),
@@ -99,6 +104,7 @@ class UsersDataTable extends DataTable
             new Column(['data' => 'name', 'name' => 'users.name', 'title' => __('users.name')]),
             new Column(['data' => 'email', 'name' => 'users.email', 'title' => __('users.email')]),
             new Column(['data' => 'workspace_display_name', 'name' => 'workspaces.display_name', 'title' => trans_choice('workspaces.workspace', 1)]),
+            new Column(['data' => 'role_display_name', 'name' => "{$roles}.display_name", 'title' => trans_choice('roles.role', 1)]),
             new Column(['data' => 'created_at', 'name' => 'users.created_at', 'title' => __('users.created_at'), 'searchable' => false]),
         ];
     }

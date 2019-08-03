@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Mcamara\LaravelLocalization\Traits\LoadsTranslatedCachedRoutes;
+use Illuminate\Contracts\Http\Kernel;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -18,6 +19,20 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     protected $namespace = 'App\Http\Controllers';
+
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        if (!\Request::is('api/*')) {
+            // Start session for rendering error page using adminlte template if user is authenticated
+            $kernel = $this->app->make(Kernel::class);
+            $kernel->pushMiddleware(\Illuminate\Session\Middleware\StartSession::class);
+        }
+    }
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -55,8 +70,8 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web.php'));
     }
 
     /**
@@ -69,8 +84,8 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::prefix('api')
-             ->middleware('api')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/api.php'));
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api.php'));
     }
 }

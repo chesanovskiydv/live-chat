@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Contracts\Http\Kernel;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,12 +16,6 @@ class AppServiceProvider extends ServiceProvider
     {
         if ($this->app->environment('local')) {
             $this->registerForLocal();
-        }
-
-        if (!$this->app->make('request')->expectsJson()) {
-            // Start session for rendering error page using adminlte template if user is authenticated
-            $kernel = $this->app->make(Kernel::class);
-            $kernel->pushMiddleware(\Illuminate\Session\Middleware\StartSession::class);
         }
     }
 

@@ -74,7 +74,14 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return $user->is($model);
+        $userActiveWorkspace = $user->activeWorkspace();
+        $modelActiveWorkspace = $model->activeWorkspace();
+
+        return $user->is($model)
+            || ($userActiveWorkspace->is($modelActiveWorkspace)
+                && $user->hasPermission('update-users', $userActiveWorkspace)
+                && $model->hasRole(Role::USER, $modelActiveWorkspace)
+            );
     }
 
     /**

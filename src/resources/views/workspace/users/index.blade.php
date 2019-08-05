@@ -26,7 +26,7 @@
                     <div class="row actions">
                         @can('create', \App\Models\User::class)
                             <div class="col-sm-12">
-                                {{ Html::linkRoute('admin::users.create', __('grid.create_new_record', ['record' => trans_choice('users.user', 1)]), [], ['class' => 'btn btn-primary']) }}
+                                {{ Html::linkRoute('workspace::users.create', __('grid.create_new_record', ['record' => trans_choice('users.user', 1)]), [], ['class' => 'btn btn-primary']) }}
                             </div>
                         @endcan
                     </div>

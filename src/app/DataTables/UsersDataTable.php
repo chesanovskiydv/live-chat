@@ -2,7 +2,9 @@
 
 namespace App\DataTables;
 
+use App\Models\Role;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\JoinClause;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
@@ -18,14 +20,16 @@ class UsersDataTable extends DataTable
      */
     public function dataTable($query)
     {
+        $viewNamespace = \Auth::user()->hasRole(Role::SUPER_ADMIN) ? 'admin' : 'workspace';
+
         return datatables($query)
             ->addIndexColumn()
             ->addColumns(['workspace_display_name', 'role_display_name', 'created_at'])
-            ->addColumn('action', function (User $user) {
+            ->addColumn('action', function (User $user) use($viewNamespace) {
                 return \Html::actions([
-                    'update' => ['url' => route('admin::users.edit', ['user' => $user]), 'can' => ['update', $user]],
+                    'update' => ['url' => route("{$viewNamespace}::users.edit", ['user' => $user]), 'can' => ['update', $user]],
                     'delete' => [
-                        'url' => route('admin::users.destroy', ['user' => $user]), 'method' => 'DELETE',
+                        'url' => route("{$viewNamespace}::users.destroy", ['user' => $user]), 'method' => 'DELETE',
                         'can' => ['delete', $user],
                         'confirmation' => [
                             'title' => __('form.confirmation.delete.title'),
@@ -65,7 +69,10 @@ class UsersDataTable extends DataTable
                     ->where("{$roleUser}.user_type", $user->getMorphClass());
             })
             ->leftJoin('workspaces', "{$roleUser}.workspace_id", 'workspaces.id')
-            ->leftJoin($roles, "{$roles}.id", "{$roleUser}.role_id");
+            ->leftJoin($roles, "{$roles}.id", "{$roleUser}.role_id")
+            ->when(!\Auth::user()->hasRole(Role::SUPER_ADMIN), function (Builder $query) {
+                $query->where('workspaces.id', \Auth::user()->workspaces->modelKeys());
+            });
     }
 
     /**

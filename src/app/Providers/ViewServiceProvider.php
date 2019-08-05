@@ -20,5 +20,6 @@ class ViewServiceProvider extends ServiceProvider
         View::composer('layouts.adminlte-error', AdminLteErrorComposer::class);
 
         $this->loadViewsFrom(resource_path("views/admin"), 'admin');
+        $this->loadViewsFrom(resource_path("views/workspace"), 'workspace');
     }
 }

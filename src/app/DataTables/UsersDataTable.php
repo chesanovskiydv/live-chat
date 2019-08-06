@@ -25,12 +25,13 @@ class UsersDataTable extends DataTable
         return datatables($query)
             ->addIndexColumn()
             ->addColumns(['workspace_display_name', 'role_display_name', 'created_at'])
-            ->addColumn('action', function (User $user) use($viewNamespace) {
+            ->addColumn('action', function (User $user) use ($viewNamespace) {
                 return \Html::actions([
                     'update' => ['url' => route("{$viewNamespace}::users.edit", ['user' => $user]), 'can' => ['update', $user]],
                     'delete' => [
                         'url' => route("{$viewNamespace}::users.destroy", ['user' => $user]), 'method' => 'DELETE',
                         'can' => ['delete', $user],
+                        'when' => $user->isNot(\Auth::user()),
                         'confirmation' => [
                             'title' => __('form.confirmation.delete.title'),
                             'text' => __('form.confirmation.delete.text'),

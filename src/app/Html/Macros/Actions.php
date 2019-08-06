@@ -74,6 +74,12 @@ class Actions extends BaseMacros
                 }
             }
 
+            if (Arr::has($parameters, 'when')) {
+                if (!$this->when(Arr::get($parameters, 'when'))) {
+                    continue;
+                }
+            }
+
             $method = strtolower($action) . "Action";
 
             $actions[] = method_exists($this, $method)
@@ -257,5 +263,23 @@ class Actions extends BaseMacros
     protected function can(string $ability, $arguments = []): bool
     {
         return $this->gate->allows($ability, $arguments);
+    }
+
+    /**
+     * @param callable|array|bool $when
+     *
+     * @return bool
+     */
+    protected function when($when): bool
+    {
+        if (is_callable($when)) {
+            return call_user_func($when);
+        } elseif (is_array($when) && isset($when[0]) && ($when[0] instanceof \Closure || is_array($when[0]))) {
+            $callback = array_shift($when);
+
+            return call_user_func_array($callback, $when);
+        }
+
+        return (bool)$when;
     }
 }

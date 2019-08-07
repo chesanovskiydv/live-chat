@@ -74,13 +74,11 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        $userActiveWorkspace = $user->activeWorkspace();
-        $modelActiveWorkspace = $model->activeWorkspace();
-
         return $user->is($model)
-            || ($userActiveWorkspace->is($modelActiveWorkspace)
-                && $user->hasPermission('update-users', $userActiveWorkspace)
-                && $model->hasRole(Role::USER, $modelActiveWorkspace)
+            || $user->hasRole(Role::OWNER, $model->activeWorkspace())
+            || ($model->workspaces()->whereKey($user->activeWorkspace()->getKey())->exists()
+                && $user->hasPermission('update-users', $user->activeWorkspace())
+                && $model->hasRole(Role::USER, $model->activeWorkspace())
             );
     }
 
@@ -94,8 +92,12 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        return $user->hasPermission('delete-users', $user->activeWorkspace())
-            && $model->workspaces()->whereKey($user->activeWorkspace()->getKey())->exists();
+        return $user->is($model)
+            || $user->hasRole(Role::OWNER, $model->activeWorkspace())
+            || ($model->workspaces()->whereKey($user->activeWorkspace()->getKey())->exists()
+                && $user->hasPermission('delete-users', $user->activeWorkspace())
+                && $model->hasRole(Role::USER, $model->activeWorkspace())
+            );
     }
 
     /**

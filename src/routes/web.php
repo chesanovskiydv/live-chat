@@ -61,9 +61,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function (Router $r
         $router->group(['namespace' => 'Workspace', 'as' => 'workspace::'], function (Router $router) {
 
             /*
-             * "Admin" and "User" role section
+             * "Owner", "Admin" and "User" role section
              */
-            $router->group(['middleware' => ['role:' . implode('|', [Role::ADMIN, Role::USER])]], function (Router $router) {
+            $router->group(['middleware' => ['role:' . implode('|', [Role::OWNER, Role::ADMIN, Role::USER])]], function (Router $router) {
 
                 /**
                  * GET|HEAD      /visitors                                          workspace::visitors.index
@@ -94,9 +94,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function (Router $r
             });
 
             /*
-             * "Admin" role section
+             * "Owner" and "Admin" role section
              */
-            $router->group(['middleware' => ['role:' . Role::ADMIN]], function (Router $router) {
+            $router->group(['middleware' => ['role:' . implode('|', [Role::OWNER, Role::ADMIN])]], function (Router $router) {
 
                 /**
                  * GET|HEAD      /users                                         workspace::users.index

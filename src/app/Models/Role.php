@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Config;
 class Role extends LaratrustRole
 {
     const SUPER_ADMIN = 'super_admin';
+    const OWNER = 'owner';
     const ADMIN = 'admin';
     const USER = 'user';
 

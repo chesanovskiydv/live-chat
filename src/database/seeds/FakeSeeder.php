@@ -51,16 +51,16 @@ class FakeSeeder extends Seeder
         $workspacesAmount = (int)$this->command->ask('How many workspaces do you need?', 10);
 
         // Ask range for api keys per workspace needed
-        $workspaceApiKeysRange = $this->command->ask('How many api keys per workspace do you need ?', sprintf('%d-%d', 0, 10));
+        $workspaceApiKeysRange = $this->command->ask('How many api keys per workspace do you need?', sprintf('%d-%d', 0, 10));
 
         // Ask range for users per workspace needed
-        $workspaceUsersRange = $this->command->ask('How many users per workspace do you need ?', sprintf('%d-%d', 0, 10));
+        $workspaceUsersRange = $this->command->ask('How many users per workspace do you need? At least one user is needed.', sprintf('%d-%d', 1, 10));
 
         // Ask range for visitors per workspace needed
-        $visitorsRange = $this->command->ask('How many visitors per workspace do you need ?', sprintf('%d-%d', 0, 20));
+        $visitorsRange = $this->command->ask('How many visitors per workspace do you need?', sprintf('%d-%d', 0, 20));
 
         // Ask range for messages per chat needed
-        $messagesRange = $this->command->ask('How many messages per chat do you need ?', sprintf('%d-%d', 0, 20));
+        $messagesRange = $this->command->ask('How many messages per chat do you need?', sprintf('%d-%d', 0, 20));
 
         return [$workspacesAmount, $workspaceApiKeysRange, $workspaceUsersRange, $visitorsRange, $messagesRange];
     }
@@ -74,7 +74,10 @@ class FakeSeeder extends Seeder
      */
     protected function createWorkspaces(int $amount): Collection
     {
-        return factory(Workspace::class, $amount)->create();
+        return factory(Workspace::class, $amount)->create()->each(function (Workspace $workspace, $key) {
+            factory(User::class)
+                ->create()->attachRole(Role::where(['name' => Role::OWNER])->first(), $workspace);
+        });
     }
 
     /**
@@ -89,7 +92,7 @@ class FakeSeeder extends Seeder
     {
         $amount = $this->valueFromRange($range);
 
-        return factory(User::class, $amount)->create()->each(function (User $user, $key) use ($workspace) {
+        return factory(User::class, max(0, $amount - 1))->create()->each(function (User $user, $key) use ($workspace) {
             $user->attachRole(Role::where(['name' => $key === 0 ? Role::ADMIN : Role::USER])->first(), $workspace);
         });
     }

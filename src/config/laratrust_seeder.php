@@ -6,6 +6,14 @@ return [
             'workspaces' => 'c,v,u,d,r,fd',
             'users' => 'c,v,u,d,r,fd',
         ],
+        'owner' => [
+            'workspaces' => 'u',
+            'users' => 'c,v,u,d,r,fd',
+            'api_keys' => 'c,v,u,d,r,fd',
+            'visitors' => 'v',
+            'chats' => 'v',
+            'messages' => 'c,v'
+        ],
         'admin' => [
             'users' => 'c,v,u,d,r,fd',
             'api_keys' => 'c,v,u,d,r,fd',

@@ -2,7 +2,10 @@
 
 namespace App\Concerns\Forms;
 
+use DeepCopy\Reflection\ReflectionHelper;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
+use Illuminate\Support\Arr;
+use Kris\LaravelFormBuilder\Form;
 
 trait ResolveValidator
 {
@@ -61,7 +64,10 @@ trait ResolveValidator
             /** @var \Kris\LaravelFormBuilder\Rules $fieldRules */
             $fieldRules = $form->getFormHelper()->mergeFieldsRules($form->getFields());
 
-            $rules = array_merge($fieldRules->getRules(), app()->call([$this, 'rules']));
+            $rules = array_merge(
+                Arr::except($fieldRules->getRules(), $this->getExtraProperty($form)),
+                app()->call([$this, 'rules'])
+            );
             $messages = array_merge($fieldRules->getMessages(), $this->messages());
             $attributes = array_merge($fieldRules->getAttributes(), $this->attributes());
 
@@ -87,5 +93,20 @@ trait ResolveValidator
             $this->validationData(), $this->rules(),
             $this->messages(), $this->attributes()
         );
+    }
+
+    /**
+     * Retrieves "exclude" property from form instance.
+     *
+     * @param Form $form
+     *
+     * @return mixed
+     */
+    protected function getExtraProperty(Form $form)
+    {
+        $reflectionProperty = ReflectionHelper::getProperty($form, 'exclude');
+        $reflectionProperty->setAccessible(true);
+
+        return $reflectionProperty->getValue($form);
     }
 }

@@ -14,6 +14,6 @@ class DeleteRequest extends BaseFormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('delete', User::class);
+        return $this->user()->can('delete', $this->route('user'));
     }
 }

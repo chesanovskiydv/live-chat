@@ -4,6 +4,7 @@ namespace App\Forms\User;
 
 use App\Models\Role;
 use App\Models\Workspace;
+use Illuminate\Database\Eloquent\Builder;
 use Kris\LaravelFormBuilder\Form;
 
 class EditForm extends Form
@@ -31,7 +32,16 @@ class EditForm extends Form
             'property' => 'display_name',
             'empty_value' => ' ',
             'selected' => $this->model->workspaces,
-            'attr' => ['disabled' => true]
+            'attr' => ['disabled' => true],
+            'query_builder' => function (Workspace $workspace) {
+                return $workspace->newQuery()->when(!\Auth::user()->hasRole(Role::SUPER_ADMIN), function(Builder $query) {
+                    $query->where('workspaces.id', \Auth::user()->workspaces->modelKeys());
+                });
+            },
         ]);
+
+        if(!\Auth::user()->hasRole(Role::SUPER_ADMIN)) {
+            $this->exclude(['workspace']);
+        }
     }
 }

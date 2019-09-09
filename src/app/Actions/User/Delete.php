@@ -17,7 +17,7 @@ class Delete extends Action
      */
     public function authorize()
     {
-        return $this->user()->can('delete', User::class);
+        return $this->user()->can('delete', $this->getModel());
     }
 
     /**

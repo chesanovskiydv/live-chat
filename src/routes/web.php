@@ -100,14 +100,15 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function (Router $r
 
                 /**
                  * GET|HEAD      /users                                         workspace::users.index
-                 * GET|HEAD      /users/{user}                                  workspace::users.show
                  * GET|HEAD      /users/create                                  workspace::users.create
                  * POST          /users/create                                  workspace::users.store
                  * GET|HEAD      /users/{user}/edit                             workspace::users.edit
                  * PUT|PATCH     /users/{user}                                  workspace::users.update
                  * DELETE        /users/{user}                                  workspace::users.destroy
                  */
-                $router->resource('users', 'UserController');
+                $router->resource('users', 'UserController', [
+                    'except' => ['show']
+                ]);
 
                 /**
                  * GET|HEAD      /api-keys                                      workspace::api-keys.index

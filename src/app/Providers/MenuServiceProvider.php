@@ -33,11 +33,13 @@ class MenuServiceProvider extends ServiceProvider
                 ],
             ];
 
+            // add role-based menu items
             if (\Auth::user()->hasRole(Role::SUPER_ADMIN)) {
                 $menu = array_merge($menu, $this->getSuperAdminMenuItems());
             } else {
                 $menu = array_merge($menu, $this->getWorkspacesUsersMenuItems());
             }
+
             $menu = array_merge($menu, $this->getDebugMenuItems());
 
             call_user_func_array([$event->menu, 'add'], $menu);
@@ -45,6 +47,8 @@ class MenuServiceProvider extends ServiceProvider
     }
 
     /**
+     * Get menu items for Super Admin.
+     *
      * @return array
      */
     protected function getSuperAdminMenuItems(): array
@@ -76,6 +80,8 @@ class MenuServiceProvider extends ServiceProvider
     }
 
     /**
+     * Get menu items for Workspace user.
+     *
      * @return array
      */
     protected function getWorkspacesUsersMenuItems(): array
@@ -129,6 +135,8 @@ class MenuServiceProvider extends ServiceProvider
     }
 
     /**
+     * Get menu items for debug.
+     *
      * @return array
      */
     protected function getDebugMenuItems(): array

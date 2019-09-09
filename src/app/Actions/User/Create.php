@@ -29,7 +29,9 @@ class Create extends Action
     {
         return \DB::transaction(function () {
             $role = Role::whereKey($this->get('role'))->firstOrFail();
-            $workspace = Workspace::whereKey($this->get('workspace'))->firstOrFail();
+            $workspace = \Auth::user()->hasRole(Role::SUPER_ADMIN)
+                ? Workspace::whereKey($this->get('workspace'))->firstOrFail()
+                : \Auth::user()->activeWorkspace();
             $password = Hash::make($this->get('password'));
 
             return User::create(array_merge(

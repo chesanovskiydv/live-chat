@@ -42,12 +42,12 @@ class WorkspacesDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Workspace $model
+     * @param \App\Models\Workspace $workspace
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Workspace $model)
+    public function query(Workspace $workspace)
     {
-        return $model->newQuery()
+        return $workspace->newQuery()
             ->select('workspaces.id', 'workspaces.display_name', 'workspaces.created_at')
             ->withCount('users');
     }

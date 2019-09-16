@@ -3,10 +3,9 @@
 namespace App\Http\Requests\User;
 
 use App\Http\Requests\BaseFormRequest;
-use App\Models\User;
 use Kris\LaravelFormBuilder\Form;
 use Kris\LaravelFormBuilder\FormBuilder;
-use App\Forms\User\EditForm as UserEditForm;
+use App\Forms\User\EditForm as EditUserForm;
 
 class UpdateRequest extends BaseFormRequest
 {
@@ -29,7 +28,7 @@ class UpdateRequest extends BaseFormRequest
      */
     public function getFormInstance(FormBuilder $formBuilder): Form
     {
-        return $formBuilder->create(UserEditForm::class, [
+        return $formBuilder->create(EditUserForm::class, [
             'model' => $this->route('user')
         ]);
     }

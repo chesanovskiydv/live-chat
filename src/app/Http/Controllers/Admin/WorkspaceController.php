@@ -51,8 +51,8 @@ class WorkspaceController extends Controller
             'form' => \FormBuilder::create(CreateWorkspaceForm::class, [
                 'method' => 'POST',
                 'url' => route('admin::workspaces.store'),
+                'model' => Workspace::newModelInstance()
             ]),
-            'workspace' => Workspace::newModelInstance()
         ]);
     }
 
@@ -91,8 +91,7 @@ class WorkspaceController extends Controller
                 'method' => 'PUT',
                 'url' => route('admin::workspaces.update', ['workspace' => $workspace]),
                 'model' => $workspace
-            ]),
-            'workspace' => $workspace
+            ])
         ]);
     }
 

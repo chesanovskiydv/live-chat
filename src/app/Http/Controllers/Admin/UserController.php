@@ -51,8 +51,8 @@ class UserController extends Controller
             'form' => \FormBuilder::create(CreateUserForm::class, [
                 'method' => 'POST',
                 'url' => route('admin::users.store'),
+                'model' => User::newModelInstance()
             ]),
-            'user' => User::newModelInstance()
         ]);
     }
 
@@ -92,7 +92,6 @@ class UserController extends Controller
                 'url' => route('admin::users.update', ['user' => $user]),
                 'model' => $user
             ]),
-            'user' => $user
         ]);
     }
 

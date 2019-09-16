@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Workspace;
+namespace App\Http\Requests\WorkspaceApiKey;
 
 use App\Http\Requests\BaseFormRequest;
 
@@ -13,6 +13,6 @@ class EditRequest extends BaseFormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('update', $this->route('workspace'));
+        return $this->user()->can('update', $this->route('api_key'));
     }
 }

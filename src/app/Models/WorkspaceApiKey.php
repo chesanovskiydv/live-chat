@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\Traits\Eloquent\ApiKeys;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -37,7 +38,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class WorkspaceApiKey extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, ApiKeys;
+
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'is_active' => true,
+    ];
 
     /**
      * The attributes that are mass assignable.

@@ -1,7 +1,6 @@
 <?php
 /**
  * @var \Kris\LaravelFormBuilder\Form $form
- * @var \App\Models\Workspace $workspace
  */
 ?>
 @extends('adminlte::page')
@@ -13,7 +12,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-8">
-            {!! Html::form($form, $workspace) !!}
+            {!! Html::form($form) !!}
         </div>
         <!-- /.col -->
     </div>

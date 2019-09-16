@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Workspace;
+namespace App\Http\Requests\WorkspaceApiKey;
 
 use App\Http\Requests\BaseFormRequest;
 use Kris\LaravelFormBuilder\Form;
 use Kris\LaravelFormBuilder\FormBuilder;
-use App\Forms\Workspace\EditForm as EditWorkspaceForm;
+use App\Forms\WorkspaceApiKey\EditForm as EditWorkspaceApiKeyForm;
 
 class UpdateRequest extends BaseFormRequest
 {
@@ -16,7 +16,7 @@ class UpdateRequest extends BaseFormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('update', $this->route('workspace'));
+        return $this->user()->can('update', $this->route('api_key'));
     }
 
     /**
@@ -28,8 +28,8 @@ class UpdateRequest extends BaseFormRequest
      */
     public function getFormInstance(FormBuilder $formBuilder): Form
     {
-        return $formBuilder->create(EditWorkspaceForm::class, [
-            'model' => $this->route('workspace')
+        return $formBuilder->create(EditWorkspaceApiKeyForm::class, [
+            'model' => $this->route('api_key')
         ]);
     }
 }

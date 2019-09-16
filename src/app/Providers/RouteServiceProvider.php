@@ -41,9 +41,9 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
+
+        Route::model('api_key', \App\Models\WorkspaceApiKey::class);
     }
 
     /**

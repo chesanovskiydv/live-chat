@@ -28,9 +28,11 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param IndexUserRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(IndexUserRequest $request)
     {
         return (new UsersDataTable())
             ->render('workspace::users.index');
@@ -49,8 +51,8 @@ class UserController extends Controller
             'form' => \FormBuilder::create(CreateUserForm::class, [
                 'method' => 'POST',
                 'url' => route('workspace::users.store'),
+                'model' => User::newModelInstance()
             ]),
-            'user' => User::newModelInstance()
         ]);
     }
 
@@ -90,7 +92,6 @@ class UserController extends Controller
                 'url' => route('workspace::users.update', ['user' => $user]),
                 'model' => $user
             ]),
-            'user' => $user
         ]);
     }
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Actions\Workspace;
+namespace App\Actions\WorkspaceApiKey;
 
 use App\Concerns\Actions\HasModel;
 use Lorisleiva\Actions\Action;
 
-class Delete extends Action
+class Update extends Action
 {
     use HasModel;
 
@@ -16,7 +16,7 @@ class Delete extends Action
      */
     public function authorize()
     {
-        return $this->user()->can('delete', $this->getModel());
+        return $this->user()->can('update', $this->getModel());
     }
 
     /**
@@ -27,6 +27,8 @@ class Delete extends Action
     public function handle()
     {
         return $this->getModel()
-            ->delete();
+            ->update(
+                array_merge(['is_active' => false], $this->only(['title', 'is_active']))
+            );
     }
 }

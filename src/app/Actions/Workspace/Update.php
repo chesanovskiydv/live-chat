@@ -3,7 +3,6 @@
 namespace App\Actions\Workspace;
 
 use App\Concerns\Actions\HasModel;
-use App\Models\Workspace;
 use Lorisleiva\Actions\Action;
 
 class Update extends Action
@@ -17,7 +16,7 @@ class Update extends Action
      */
     public function authorize()
     {
-        return $this->user()->can('update', Workspace::class);
+        return $this->user()->can('update', $this->getModel());
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\DataTables;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Workspace;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\JoinClause;
 use Yajra\DataTables\Html\Column;
@@ -71,8 +72,8 @@ class UsersDataTable extends DataTable
             })
             ->leftJoin('workspaces', "{$roleUser}.workspace_id", 'workspaces.id')
             ->leftJoin($roles, "{$roles}.id", "{$roleUser}.role_id")
-            ->when(!\Auth::user()->hasRole(Role::SUPER_ADMIN), function (Builder $query) {
-                $query->where('workspaces.id', \Auth::user()->workspaces->modelKeys());
+            ->when(\Auth::user()->activeWorkspace(), function(Builder $query, Workspace $workspace) {
+                $query->where('workspaces.id', $workspace->getKey());
             });
     }
 

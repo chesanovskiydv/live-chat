@@ -112,14 +112,15 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function (Router $r
 
                 /**
                  * GET|HEAD      /api-keys                                      workspace::api-keys.index
-                 * GET|HEAD      /api-keys/{api_key}                            workspace::api-keys.show
                  * GET|HEAD      /api-keys/create                               workspace::api-keys.create
                  * POST          /api-keys/create                               workspace::api-keys.store
                  * GET|HEAD      /api-keys/{api_key}/edit                       workspace::api-keys.edit
                  * PUT|PATCH     /api-keys/{api_key}                            workspace::api-keys.update
                  * DELETE        /api-keys/{api_key}                            workspace::api-keys.destroy
                  */
-                $router->resource('api-keys', 'ApiKeyController');
+                $router->resource('api-keys', 'ApiKeyController', [
+                    'except' => ['show']
+                ]);
             });
 
         });

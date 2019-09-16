@@ -23,7 +23,7 @@ class EditForm extends Form
             'property' => 'display_name',
             'empty_value' => ' ',
             'query_builder' => function (Role $role) {
-                return $role->newQuery()->whereIn('name', [Role::ADMIN, Role::USER]);
+                return $role->newQuery()->whereIn('roles.name', [Role::ADMIN, Role::USER]);
             },
             'selected' => $this->model->roles,
             'rules' => ['required', 'exists:roles,id']

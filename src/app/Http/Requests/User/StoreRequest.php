@@ -6,7 +6,7 @@ use App\Http\Requests\BaseFormRequest;
 use App\Models\User;
 use Kris\LaravelFormBuilder\Form;
 use Kris\LaravelFormBuilder\FormBuilder;
-use App\Forms\User\CreateForm as UserCreateForm;
+use App\Forms\User\CreateForm as CreateUserForm;
 
 class StoreRequest extends BaseFormRequest
 {
@@ -29,6 +29,6 @@ class StoreRequest extends BaseFormRequest
      */
     public function getFormInstance(FormBuilder $formBuilder): Form
     {
-        return $formBuilder->create(UserCreateForm::class);
+        return $formBuilder->create(CreateUserForm::class);
     }
 }

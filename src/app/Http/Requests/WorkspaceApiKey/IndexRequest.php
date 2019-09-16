@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Workspace;
+namespace App\Http\Requests\WorkspaceApiKey;
 
 use App\Http\Requests\BaseFormRequest;
+use App\Models\WorkspaceApiKey;
 
-class EditRequest extends BaseFormRequest
+class IndexRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,6 +14,6 @@ class EditRequest extends BaseFormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('update', $this->route('workspace'));
+        return $this->user()->can('viewAny', WorkspaceApiKey::class);
     }
 }

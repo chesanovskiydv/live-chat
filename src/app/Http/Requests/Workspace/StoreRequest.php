@@ -6,7 +6,7 @@ use App\Http\Requests\BaseFormRequest;
 use App\Models\Workspace;
 use Kris\LaravelFormBuilder\Form;
 use Kris\LaravelFormBuilder\FormBuilder;
-use App\Forms\Workspace\CreateForm as WorkspaceCreateForm;
+use App\Forms\Workspace\CreateForm as CreateWorkspaceForm;
 
 class StoreRequest extends BaseFormRequest
 {
@@ -29,6 +29,6 @@ class StoreRequest extends BaseFormRequest
      */
     public function getFormInstance(FormBuilder $formBuilder): Form
     {
-        return $formBuilder->create(WorkspaceCreateForm::class);
+        return $formBuilder->create(CreateWorkspaceForm::class);
     }
 }

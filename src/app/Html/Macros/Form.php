@@ -39,16 +39,15 @@ class Form extends BaseMacros
 
     /**
      * @param \Kris\LaravelFormBuilder\Form $form
-     * @param \Illuminate\Database\Eloquent\Model $model
      *
      * @return \Illuminate\Support\HtmlString
      */
-    public function __invoke(KrisForm $form, Model $model): HtmlString
+    public function __invoke(KrisForm $form): HtmlString
     {
         return new HtmlString(
             $this->view->make("macros.form", [
                 'form' => $form,
-                'model' => $model,
+                'model' => optional($form->getModel()),
             ])->render()
         );
     }

@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Workspace;
 
 use App\Http\Requests\BaseFormRequest;
-use App\Models\Workspace;
 
 class DeleteRequest extends BaseFormRequest
 {
@@ -14,6 +13,6 @@ class DeleteRequest extends BaseFormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('delete', Workspace::class);
+        return $this->user()->can('delete', $this->route('workspace'));
     }
 }

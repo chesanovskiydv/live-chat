@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Workspace;
+namespace App\Actions\WorkspaceApiKey;
 
 use App\Concerns\Actions\HasModel;
 use Lorisleiva\Actions\Action;

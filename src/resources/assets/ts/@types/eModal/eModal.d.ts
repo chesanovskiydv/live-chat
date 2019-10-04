@@ -110,4 +110,3 @@ interface ELabel {
 type Size = 'sm' | 'lg' | 'xl';
 
 declare const eModal: EModal;
-

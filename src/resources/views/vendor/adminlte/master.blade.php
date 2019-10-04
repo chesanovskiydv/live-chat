@@ -80,6 +80,17 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
 @endif
 
+@if(config('adminlte.plugins.clipboard'))
+    <!-- clipboard.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+    <script src="{{ asset('js/clipboard.js') }}"></script>
+    <script>
+        $(function() {
+            initClipboardJs(".{{\App\Forms\Fields\Clipboard::DEFAULT_CLASS}}");
+        });
+    </script>
+@endif
+
 <!-- Macros -->
 <script src="{{ asset('js/macros.js') }}"></script>
 

@@ -145,5 +145,6 @@ return [
         'emodal' => true,
         'select2' => true,
         'chartjs' => false,
+        'clipboard' => true
     ],
 ];

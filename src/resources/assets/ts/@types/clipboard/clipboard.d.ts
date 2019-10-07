@@ -1,111 +1,74 @@
-/// <reference types="tiny-emitter"/>
-
-interface Clipboard {
+declare class ClipboardJS {
+    /**
+     * @param {ClipboardJS.Target} selector 
+     * @param {ClipboardJS.Options} [options] 
+     */
+    constructor(selector: ClipboardJS.Target, options?: ClipboardJS.Options);
 
     /**
-     * Defines if attributes would be resolved using internal setter functions
-     * or custom functions that were passed in the constructor.
-     * @param {Object} options
+     * Subscribes to events that indicate the result of a copy/cut operation.
+     * @param {String} type Event type ('success' or 'error').
+     * @param handler Callback function.
      */
-    resolveOptions(options?: ClipboardOptions): void;
-
-    /**
-     * Adds a click event listener to the passed trigger.
-     * @param {String|HTMLElement|HTMLCollection|NodeList} trigger
-     */
-    listenClick(trigger: Trigger): void;
-
-    /**
-     * Defines a new `ClipboardAction` on each click event.
-     * @param {Event} e
-     */
-    onClick(e: Event): void;
-
-    /**
-     * Default `action` lookup function.
-     * @param {Element} trigger
-     */
-    defaultAction: ActionFunction;
-
-    /**
-     * Default `target` lookup function.
-     * @param {Element} trigger
-     */
-    defaultTarget: TargetFunction
-
-    /**
-     * Default `text` lookup function.
-     * @param {Element} trigger
-     */
-    defaultText: TextFunction;
+    on(type: "success" | "error", handler: (e: ClipboardJS.Event) => void): this;
+    on(type: string, handler: (...args: any[]) => void): this;
 
     /**
      * Destroy lifecycle.
      */
     destroy(): void;
-}
-
-interface ClipboardConstructor {
-    /**
-     * @param {String|HTMLElement|HTMLCollection|NodeList} trigger
-     * @param {Object} options
-     */
-    new(trigger: Trigger, options?: ClipboardOptions): ClipboardInstance;
 
     /**
      * Returns the support of the given action, or all actions if no action is
      * given.
      * @param {String} [action]
      */
-    isSupported(action?: Array<Action> | Action): boolean;
+    static isSupported(action?: Array<ClipboardJS.Action> | ClipboardJS.Action): boolean;
 }
 
-interface ClipboardOptions {
-    action?: ActionFunction;
-    target?: TargetFunction;
-    text?: TextFunction;
-    container?: HTMLElement | NodeList;
+declare namespace ClipboardJS {
+    interface Options {
+        /**
+         * Overwrites default command ('cut' or 'copy').
+         * @param {Target} target Current element
+         */
+        action?(target: Target): Action;
+
+        /**
+         * Overwrites default target input element.
+         * @param {Target} target Current element
+         * @returns <input> element to use.
+         */
+        target?(target: Target): Element;
+
+        /**
+         * Returns the explicit text to copy.
+         * @param {Target} target Current element
+         * @returns Text to be copied.
+         */
+        text?(target: Target): string;
+
+        /**
+         * For use in Bootstrap Modals or with any
+         * other library that changes the focus
+         * you'll want to set the focused element
+         * as the container value.
+         */
+        container?: Element | NodeList;
+    }
+
+    interface Event {
+        action: string;
+        text: string;
+        trigger: Element;
+        clearSelection(): void;
+    }
+
+    type Action = 'copy' | 'cut';
+
+    type Target = string | Element | NodeListOf<Element>;
 }
 
-interface ActionFunction {
-    /**
-     * `action` lookup function.
-     * @param {Element} trigger
-     */
-    (trigger: Trigger): Action | void;
-}
+export = ClipboardJS;
 
-interface TargetFunction {
-    /**
-     * `target` lookup function.
-     * @param {Element} trigger
-     */
-    (trigger: Trigger): HTMLInputElement | void;
-}
-
-interface TextFunction {
-    /**
-     * `text` lookup function.
-     * @param {Element} trigger
-     */
-    (trigger: Trigger): string | void;
-}
-
-interface ClipboardAction {
-    action: Action | void;
-    text: string | void;
-    trigger: Element;
-    clearSelection: Function;
-}
-
-type Action = 'copy' | 'cut';
-
-type Trigger = String | HTMLElement | HTMLCollection | NodeList;
-
-type ClipboardInstance = Clipboard & TinyEmitter;
-
-/**
- * Base class which takes one or more elements, adds event listeners to them,
- * and instantiates a new `ClipboardAction` on each click.
- */
-declare const ClipboardJS: ClipboardConstructor;
+export as namespace ClipboardJS;

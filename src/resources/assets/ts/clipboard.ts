@@ -1,4 +1,4 @@
-function initClipboardJs(target: Trigger, options: ClipboardOptions = {}): ClipboardInstance {
+function initClipboardJs(target: ClipboardJS.Target, options: ClipboardJS.Options = {}): ClipboardJS {
     return (new ClipboardJS(target, options));
 }
 

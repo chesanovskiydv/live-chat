@@ -1,31 +1,3 @@
-declare class ClipboardJS {
-    /**
-     * @param {ClipboardJS.Target} selector 
-     * @param {ClipboardJS.Options} [options] 
-     */
-    constructor(selector: ClipboardJS.Target, options?: ClipboardJS.Options);
-
-    /**
-     * Subscribes to events that indicate the result of a copy/cut operation.
-     * @param {String} type Event type ('success' or 'error').
-     * @param handler Callback function.
-     */
-    on(type: "success" | "error", handler: (e: ClipboardJS.Event) => void): this;
-    on(type: string, handler: (...args: any[]) => void): this;
-
-    /**
-     * Destroy lifecycle.
-     */
-    destroy(): void;
-
-    /**
-     * Returns the support of the given action, or all actions if no action is
-     * given.
-     * @param {String} [action]
-     */
-    static isSupported(action?: Array<ClipboardJS.Action> | ClipboardJS.Action): boolean;
-}
-
 declare namespace ClipboardJS {
     interface Options {
         /**
@@ -61,6 +33,7 @@ declare namespace ClipboardJS {
         action: string;
         text: string;
         trigger: Element;
+
         clearSelection(): void;
     }
 
@@ -69,6 +42,30 @@ declare namespace ClipboardJS {
     type Target = string | Element | NodeListOf<Element>;
 }
 
-export = ClipboardJS;
+class ClipboardJS {
+    /**
+     * @param {ClipboardJS.Target} selector
+     * @param {ClipboardJS.Options} [options]
+     */
+    constructor(selector: ClipboardJS.Target, options?: ClipboardJS.Options);
 
-export as namespace ClipboardJS;
+    /**
+     * Subscribes to events that indicate the result of a copy/cut operation.
+     * @param {String} type Event type ('success' or 'error').
+     * @param handler Callback function.
+     */
+    on(type: "success" | "error", handler: (e: ClipboardJS.Event) => void): this;
+    on(type: string, handler: (...args: any[]) => void): this;
+
+    /**
+     * Destroy lifecycle.
+     */
+    destroy(): void;
+
+    /**
+     * Returns the support of the given action, or all actions if no action is
+     * given.
+     * @param {String} [action]
+     */
+    static isSupported(action?: Array<ClipboardJS.Action> | ClipboardJS.Action): boolean;
+}

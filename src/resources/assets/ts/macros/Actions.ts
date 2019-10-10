@@ -21,8 +21,8 @@ export default class Actions {
     /**
      * @param {String} dataAttributePrefix
      */
-    constructor(dataAttributePrefix?: string) {
-        this.dataAttributePrefix = dataAttributePrefix || 'data-action-form';
+    constructor(dataAttributePrefix: string = 'data-action-form') {
+        this.dataAttributePrefix = dataAttributePrefix;
     }
 
     /**
@@ -30,7 +30,7 @@ export default class Actions {
      *
      * @param {String} dataAttributePrefix
      */
-    public static init(dataAttributePrefix?: string): void {
+    public static init(dataAttributePrefix: string = 'data-action-form'): void {
         let instance = new Actions(dataAttributePrefix);
 
         jQuery(document).on('click', `[${instance.dataAttributeKey}]`, instance.handle.bind(instance));

@@ -6,6 +6,10 @@ th.actions {
   width: 100px;
 }
 
+html {
+  font-size: 14px;
+}
+
 @media (max-width: 768px) {
   .box-footer .actions .btn {
     display: block;

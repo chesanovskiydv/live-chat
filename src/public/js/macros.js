@@ -123,7 +123,8 @@ var Actions = /** @class */ (function () {
      * @param {String} dataAttributePrefix
      */
     function Actions(dataAttributePrefix) {
-        this.dataAttributePrefix = dataAttributePrefix || 'data-action-form';
+        if (dataAttributePrefix === void 0) { dataAttributePrefix = 'data-action-form'; }
+        this.dataAttributePrefix = dataAttributePrefix;
     }
     Object.defineProperty(Actions.prototype, "dataAttributeKey", {
         get: function () {
@@ -148,6 +149,7 @@ var Actions = /** @class */ (function () {
      * @param {String} dataAttributePrefix
      */
     Actions.init = function (dataAttributePrefix) {
+        if (dataAttributePrefix === void 0) { dataAttributePrefix = 'data-action-form'; }
         var instance = new Actions(dataAttributePrefix);
         jQuery(document).on('click', "[" + instance.dataAttributeKey + "]", instance.handle.bind(instance));
     };
@@ -232,9 +234,9 @@ jQuery(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\programming\OSPanel\domains\live-chat\src\resources\assets\ts\macros\init.ts */"./resources/assets/ts/macros/init.ts");
-__webpack_require__(/*! D:\programming\OSPanel\domains\live-chat\src\resources\assets\sass\macros\macros.scss */"./resources/assets/sass/macros/macros.scss");
-module.exports = __webpack_require__(/*! D:\programming\OSPanel\domains\live-chat\src\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
+__webpack_require__(/*! D:\www\live-chat\src\resources\assets\ts\macros\init.ts */"./resources/assets/ts/macros/init.ts");
+__webpack_require__(/*! D:\www\live-chat\src\resources\assets\sass\macros\macros.scss */"./resources/assets/sass/macros/macros.scss");
+module.exports = __webpack_require__(/*! D:\www\live-chat\src\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
 
 
 /***/ })

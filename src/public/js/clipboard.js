@@ -95,9 +95,47 @@
 
 "use strict";
 
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * @param {Event} event
+ * @param {Content} content
+ */
+function showTooltip(event, content) {
+    if (event.trigger._tippy) {
+        event.trigger._tippy.setContent(content);
+        event.trigger._tippy.show();
+    }
+}
+/**
+ * @param {string} action
+ * @return {string}
+ */
+function fallbackMessage(action) {
+    var actionMsg = '', actionKey = (action === 'cut' ? 'X' : 'C');
+    if (/iPhone|iPad/i.test(navigator.userAgent)) {
+        actionMsg = 'No support :(';
+    }
+    else if (/Mac/i.test(navigator.userAgent)) {
+        actionMsg = 'Press ⌘-' + actionKey + ' to ' + action;
+    }
+    else {
+        actionMsg = 'Press Ctrl-' + actionKey + ' to ' + action;
+    }
+    return actionMsg;
+}
+/**
+ * @param {ClipboardJS.Target} target
+ * @param {ClipboardJS.Options} options
+ * @return {ClipboardJS}
+ */
 function initClipboardJs(target, options) {
     if (options === void 0) { options = {}; }
-    return (new ClipboardJS(target, options));
+    tippy(target, {
+        trigger: "manual",
+    });
+    return (new ClipboardJS(target, options))
+        .on("success", function (e) { return showTooltip(e, 'Copied!'); })
+        .on("error", function (e) { return showTooltip(e, fallbackMessage(e.action)); });
 }
 window.initClipboardJs = initClipboardJs;
 
@@ -111,7 +149,7 @@ window.initClipboardJs = initClipboardJs;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\programming\OSPanel\domains\live-chat\src\resources\assets\ts\clipboard.ts */"./resources/assets/ts/clipboard.ts");
+module.exports = __webpack_require__(/*! D:\www\live-chat\src\resources\assets\ts\clipboard.ts */"./resources/assets/ts/clipboard.ts");
 
 
 /***/ })

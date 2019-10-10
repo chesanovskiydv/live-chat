@@ -80,6 +80,12 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
 @endif
 
+@if(config('adminlte.plugins.tippy'))
+    <!-- Tippy.js -->
+    <script src="https://unpkg.com/popper.js@1"></script>
+    <script src="https://unpkg.com/tippy.js@5"></script>
+@endif
+
 @if(config('adminlte.plugins.clipboard'))
     <!-- clipboard.js -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>

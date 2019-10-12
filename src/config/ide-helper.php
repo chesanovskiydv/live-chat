@@ -113,6 +113,7 @@ return array(
         'Html' => array(
             'actions' => 'App\Html\Macros\Actions::__invoke',
             'form' => 'App\Html\Macros\Form::__invoke',
+            'element' => 'App\Html\Macros\Element::__invoke',
             'pagination' => 'App\Html\Macros\Pagination::__invoke',
             'searchForm' => 'App\Html\Macros\SearchForm::__invoke',
             'sortableLink' => 'App\Html\Macros\SortableLink::__invoke',

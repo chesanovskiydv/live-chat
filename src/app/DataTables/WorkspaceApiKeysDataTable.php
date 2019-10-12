@@ -38,8 +38,8 @@ class WorkspaceApiKeysDataTable extends DataTable
                 ]);
             })->editColumn('is_active', function (WorkspaceApiKey $workspaceApiKey) {
                 return $workspaceApiKey->is_active
-                    ? new HtmlString('<span class="label label-success">' . __('api_keys.statuses.active') . '</span>')
-                    : new HtmlString('<span class="label label-danger">' . __('api_keys.statuses.inactive') . '</span>');
+                    ? \Html::element('label', 'success', __('api_keys.statuses.active'))
+                    : \Html::element('label', 'danger', __('api_keys.statuses.inactive'));
             })->setRowAttr([
                 'data-key' => function (WorkspaceApiKey $workspaceApiKey) {
                     return $workspaceApiKey->getKey();

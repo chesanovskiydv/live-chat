@@ -43,7 +43,7 @@ class Pagination extends BaseMacros
      */
     public function __invoke(LengthAwarePaginator $paginator): HtmlString
     {
-        return new HtmlString(
+        return $this->toHtmlString(
             $this->view->make("macros.pagination", ['paginator' => $paginator])->render()
         );
     }

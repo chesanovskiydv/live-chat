@@ -44,7 +44,7 @@ class Form extends BaseMacros
      */
     public function __invoke(KrisForm $form): HtmlString
     {
-        return new HtmlString(
+        return $this->toHtmlString(
             $this->view->make("macros.form", [
                 'form' => $form,
                 'model' => optional($form->getModel()),

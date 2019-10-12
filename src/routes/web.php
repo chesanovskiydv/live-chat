@@ -67,14 +67,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function (Router $r
 
                 /**
                  * GET|HEAD      /visitors                                          workspace::visitors.index
-                 * GET|HEAD      /visitors/{visitor}                                workspace::visitors.show
-                 * GET|HEAD      /visitors/create                                   workspace::visitors.create
-                 * POST          /visitors/create                                   workspace::visitors.store
-                 * GET|HEAD      /visitors/{visitor}/edit                           workspace::visitors.edit
-                 * PUT|PATCH     /visitors/{visitor}                                workspace::visitors.update
-                 * DELETE        /visitors/{visitor}                                workspace::visitors.destroy
                  */
-                $router->resource('visitors', 'VisitorController');
+                $router->resource('visitors', 'VisitorController', [
+                    'only' => ['index']
+                ]);
 
                 /**
                  * GET|HEAD      /chats                                             workspace::chats.index

@@ -1,0 +1,37 @@
+.chat {
+    position: relative;
+    border-radius: 3px;
+    background: #ffffff;
+    border-top: 3px solid #d2d6de;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+
+    &.fixed {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        right: 50px;
+        left: auto;
+        margin: 0;
+        width: 400px;
+
+        &.left {
+            right: auto;
+            left: 50px;
+        }
+
+        &.top {
+            top: 0;
+            bottom: auto;
+        }
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .collapse-wrapper {
+        transition: height 500ms;
+    }
+}

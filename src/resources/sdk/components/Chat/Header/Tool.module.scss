@@ -1,0 +1,14 @@
+.tool {
+    padding: 5px;
+    font-size: 12px;
+    background: transparent;
+    color: #97a0b3;
+
+    &:active {
+        box-shadow: none;
+    }
+
+    &:hover {
+        color: #606c84;
+    }
+}

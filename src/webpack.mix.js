@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+require('laravel-mix-react-css-modules');
 
 /*
  |--------------------------------------------------------------------------
@@ -14,7 +15,10 @@ const mix = require('laravel-mix');
 mix.copy('node_modules/emodal/dist', 'public/libs/emodal');
 
 mix //.react('resources/assets/js/app.js', 'public/js')
+    .react('resources/sdk/index.js', 'public/sdk')
     .ts('resources/assets/ts/macros/init.ts', 'public/js/macros.js')
     .ts('resources/assets/ts/clipboard.ts', 'public/js/clipboard.js')
     .sass('resources/assets/sass/macros/macros.scss', 'public/css')
-    .sass('resources/assets/sass/app.scss', 'public/css');
+    .sass('resources/assets/sass/app.scss', 'public/css')
+    .reactCSSModules('[local]_[hash:base64:8]')
+;

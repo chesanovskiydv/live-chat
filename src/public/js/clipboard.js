@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -142,14 +142,14 @@ window.initClipboardJs = initClipboardJs;
 
 /***/ }),
 
-/***/ 1:
+/***/ 2:
 /*!************************************************!*\
   !*** multi ./resources/assets/ts/clipboard.ts ***!
   \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\www\live-chat\src\resources\assets\ts\clipboard.ts */"./resources/assets/ts/clipboard.ts");
+module.exports = __webpack_require__(/*! D:\OSPanel\domains\live-chat\src\resources\assets\ts\clipboard.ts */"./resources/assets/ts/clipboard.ts");
 
 
 /***/ })

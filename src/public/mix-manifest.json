@@ -1,6 +1,7 @@
 {
     "/js/clipboard.js": "/js/clipboard.js",
     "/js/macros.js": "/js/macros.js",
+    "/sdk/index.js": "/sdk/index.js",
     "/css/macros.css": "/css/macros.css",
     "/css/app.css": "/css/app.css"
 }

@@ -1,0 +1,27 @@
+@import './../../../sass/utils';
+
+.header {
+    color: #444;
+    display: block;
+    padding: 10px;
+    position: relative;
+
+    @include clearfix;
+
+    &.with-border {
+        border-bottom: 1px solid #f4f4f4;
+    }
+
+    .title {
+        display: contents;
+        font-size: 18px;
+        margin: 0;
+        line-height: 29px;
+    }
+
+    .tools {
+        float: right;
+    }
+}
+
+

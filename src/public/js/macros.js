@@ -81,32 +81,10 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
-
-/***/ "./resources/assets/sass/app.scss":
-/*!****************************************!*\
-  !*** ./resources/assets/sass/app.scss ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "./resources/assets/sass/macros/macros.scss":
-/*!**************************************************!*\
-  !*** ./resources/assets/sass/macros/macros.scss ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
 
 /***/ "./resources/assets/ts/macros/Actions.ts":
 /*!***********************************************!*\
@@ -227,16 +205,14 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 0:
-/*!******************************************************************************************************************************!*\
-  !*** multi ./resources/assets/ts/macros/init.ts ./resources/assets/sass/macros/macros.scss ./resources/assets/sass/app.scss ***!
-  \******************************************************************************************************************************/
+/***/ 1:
+/*!**************************************************!*\
+  !*** multi ./resources/assets/ts/macros/init.ts ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\www\live-chat\src\resources\assets\ts\macros\init.ts */"./resources/assets/ts/macros/init.ts");
-__webpack_require__(/*! D:\www\live-chat\src\resources\assets\sass\macros\macros.scss */"./resources/assets/sass/macros/macros.scss");
-module.exports = __webpack_require__(/*! D:\www\live-chat\src\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
+module.exports = __webpack_require__(/*! D:\OSPanel\domains\live-chat\src\resources\assets\ts\macros\init.ts */"./resources/assets/ts/macros/init.ts");
 
 
 /***/ })

@@ -15,18 +15,19 @@ export default class Header extends React.Component {
     };
 
     render() {
-        let tools;
+        const {tools, title, className, ...props} = this.props;
+        let toolsList;
 
-        if (this.props.tools) {
-            tools = <div className={style.tools}>
-                {this.props.tools}
+        if (tools) {
+            toolsList = <div className={style.tools}>
+                {tools}
             </div>;
         }
 
         return (
-            <header className={clsx(style.header, style['with-border'])}>
-                {tools}
-                <div className={style.title}>{this.props.title}</div>
+            <header className={clsx(style.header, style['with-border'], className)} {...props}>
+                {toolsList}
+                <div className={style.title}>{title}</div>
             </header>
         )
     }

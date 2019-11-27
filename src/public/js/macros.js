@@ -212,7 +212,7 @@ jQuery(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\OSPanel\domains\live-chat\src\resources\assets\ts\macros\init.ts */"./resources/assets/ts/macros/init.ts");
+module.exports = __webpack_require__(/*! D:\www\live-chat\src\resources\assets\ts\macros\init.ts */"./resources/assets/ts/macros/init.ts");
 
 
 /***/ })

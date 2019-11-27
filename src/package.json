@@ -34,6 +34,7 @@
         "react-avatar": "^3.7.0",
         "react-collapse": "^5.0.0",
         "react-dom": "^16.10.2",
+        "react-draggable": "^4.1.0",
         "react-icons": "^3.8.0",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.23.0",

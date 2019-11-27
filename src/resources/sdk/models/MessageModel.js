@@ -1,3 +1,5 @@
+import {observable} from "mobx";
+
 import UserModel from "./UserModel";
 
 export default class MessageModel {
@@ -27,15 +29,22 @@ export default class MessageModel {
     createdAt;
 
     /**
+     * @type {Date|null}
+     */
+    @observable readAt;
+
+    /**
      * @param {String|Number} id
      * @param {CustomerModel|UserModel} author
      * @param {String} text
      * @param {Date} createdAt
+     * @param {Date|null} [readAt]
      */
-    constructor(id, author, text, createdAt) {
+    constructor(id, author, text, createdAt, readAt = null) {
         this.id = id;
         this.author = author;
         this.text = text;
         this.createdAt = createdAt;
+        this.readAt = readAt;
     }
 }

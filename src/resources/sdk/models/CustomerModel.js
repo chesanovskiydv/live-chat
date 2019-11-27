@@ -1,5 +1,6 @@
 import {UserModel} from "sdk/models/index";
 
+
 export default class CustomerModel extends UserModel {
 
     /**

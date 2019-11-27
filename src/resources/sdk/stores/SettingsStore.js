@@ -12,7 +12,8 @@ export default class SettingsStore {
      * @type {Object}
      */
     chatSettings = {
-        isOpened: false
+        isOpened: false,
+        isDraggable: false
     };
 
     /**

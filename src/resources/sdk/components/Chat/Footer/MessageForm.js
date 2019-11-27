@@ -3,15 +3,12 @@ import PropTypes from 'prop-types';
 import {inject} from "mobx-react";
 import clsx from "clsx";
 
-import {SettingsStore} from "sdk/stores";
-
 import generalStyles from "sdk/sass/index.scss";
 
 
 @inject('settingsStore')
 export default class MessageForm extends React.Component {
     static propTypes = {
-        settingsStore: PropTypes.instanceOf(SettingsStore).isRequired,
         submitButtonText: PropTypes.string,
         inputPlaceholder: PropTypes.string,
         submitHandler: PropTypes.func.isRequired,

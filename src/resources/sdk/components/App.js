@@ -19,11 +19,13 @@ export default class App extends React.Component {
     };
 
     render() {
+        const {stores} = this.props;
+
         return (
-            <Provider {...this.props.stores}>
+            <Provider {...stores}>
                 <IconContext.Provider value={{style: {verticalAlign: 'middle'}}}>
 
-                    <Chat isOpened={this.props.stores.settingsStore.chatSettings.isOpened}/>
+                    <Chat {...stores.settingsStore.chatSettings}/>
 
                 </IconContext.Provider>
             </Provider>

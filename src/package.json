@@ -13,7 +13,7 @@
         "@babel/preset-react": "^7.0.0",
         "@types/bootstrap": "^3.3.42",
         "@types/jquery": "^3.3.29",
-        "axios": "^0.19.0",
+        "axios": "^0.21.1",
         "bootstrap": "^4.0.0",
         "cross-env": "^5.1",
         "emodal": "^1.2.67",
